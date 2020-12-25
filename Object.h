@@ -3,10 +3,10 @@
 
 #include <cstdio>
 
-#define qDebug(fmt, arg...) printf("[%s, %d] "fmt, ##args)
-
 namespace QinLib
 {
+#define qDebug(fmt, arg...) printf("[%s, %d] "fmt, ##args)
+
 class Object
 {
     protected:
