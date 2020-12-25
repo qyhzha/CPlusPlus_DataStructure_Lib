@@ -17,7 +17,7 @@ void* Object::operator new(size_t size) throw()
 
 void Object::operator delete(void* p)
 {
-    free(p);
+    if(p != NULL) free(p);
 }
 
 void* Object::operator new[](size_t size) throw()
@@ -27,7 +27,7 @@ void* Object::operator new[](size_t size) throw()
 
 void Object::operator delete[](void* p)
 {
-    free(p);
+    if(p != NULL) free(p);
 }
 
 const char* Object::objectName() const
@@ -37,13 +37,13 @@ const char* Object::objectName() const
 
 void Object::setObjectName(const char *name)
 {
-    free(m_objectName);
+    if(m_objectName != NULL) free(m_objectName);
     m_objectName = strdup(name);
 }
 
 Object::~Object()
 {
-
+    if(m_objectName != NULL) free(m_objectName);
 }
 
 }

@@ -1,9 +1,9 @@
-#ifndef OBJECT_H
-#define OBJECT_H
+#ifndef __OBJECT_H__
+#define __OBJECT_H__
 
-#include <iostream>
+#include <cstdio>
 
-#define deBug() std::cout << "File: " << __FILE__ << std::endl << "Line: " << __LINE__ << std::endl
+#define qDebug(fmt, arg...) printf("[%s, %d] "fmt, ##args)
 
 namespace QinLib
 {
