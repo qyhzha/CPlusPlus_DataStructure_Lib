@@ -1,36 +1,33 @@
-#ifndef EXCEPTION_H
-#define EXCEPTION_H
+#ifndef __EXCEPTION_H__
+#define __EXCEPTION_H__
 
-#include <cstring>
-#include <cstdlib>
 #include "Object.h"
 
 namespace QinLib
 {
-
 #define THROW_EXCEPTION(e, m) (throw e(m, __FILE__, __LINE__))
 
 class Exception : public Object
 {
-protected:
-    char* m_message;
-    char* m_location;
+    protected:
+        char *m_message;
+        char *m_location;
 
-protected:
-    void init(const char* message, const char* file, int line);
+    protected:
+        void init(const char *message, const char *file, int line);
 
-public:
-    Exception(const char* message);
-    Exception(const char* file, int line);
-    Exception(const char* message, const char* file, int line);
+    public:
+        Exception(const char *message);
+        Exception(const char *file, int line);
+        Exception(const char *message, const char *file, int line);
 
-    Exception(const Exception& e);
-    Exception& operator =(const Exception& e);
+        Exception(const Exception &e);
+        Exception &operator =(const Exception &e);
 
-    virtual const char* message() const;
-    virtual const char* location() const;
+        virtual const char *message() const;
+        virtual const char *location() const;
 
-    virtual ~Exception() = 0;
+        virtual ~Exception() = 0;
 };
 }
 
@@ -38,18 +35,19 @@ namespace QinLib
 {
 class ArithmeticException : public Exception
 {
-public:
-    ArithmeticException() : Exception(NULL) {}
-    ArithmeticException(const char* message) : Exception(message) {}
-    ArithmeticException(const char* file, int line) : Exception(file, line) {}
-    ArithmeticException(const char* message, const char* file, int line) : Exception(message, file, line) {}
+    public:
+        ArithmeticException() : Exception(NULL) {}
+        ArithmeticException(const char *message) : Exception(message) {}
+        ArithmeticException(const char *file, int line) : Exception(file, line) {}
+        ArithmeticException(const char *message, const char *file,
+                            int line) : Exception(message, file, line) {}
 
-    ArithmeticException(const ArithmeticException& e): Exception(e) {}
-    ArithmeticException& operator =(const ArithmeticException& e)
-    {
-        Exception::operator =(e);
-        return *this;
-    }
+        ArithmeticException(const ArithmeticException &e): Exception(e) {}
+        ArithmeticException &operator =(const ArithmeticException &e)
+        {
+            Exception::operator =(e);
+            return *this;
+        }
 };
 }
 
@@ -57,18 +55,19 @@ namespace QinLib
 {
 class IndexOutOfBoundsException : public Exception
 {
-public:
-    IndexOutOfBoundsException() : Exception(NULL) {}
-    IndexOutOfBoundsException(const char* message) : Exception(message) {}
-    IndexOutOfBoundsException(const char* file, int line) : Exception(file, line) {}
-    IndexOutOfBoundsException(const char* message, const char* file, int line) : Exception(message, file, line) {}
+    public:
+        IndexOutOfBoundsException() : Exception(NULL) {}
+        IndexOutOfBoundsException(const char *message) : Exception(message) {}
+        IndexOutOfBoundsException(const char *file, int line) : Exception(file, line) {}
+        IndexOutOfBoundsException(const char *message, const char *file,
+                                  int line) : Exception(message, file, line) {}
 
-    IndexOutOfBoundsException(const IndexOutOfBoundsException& e): Exception(e) {}
-    IndexOutOfBoundsException& operator =(const IndexOutOfBoundsException& e)
-    {
-        Exception::operator =(e);
-        return *this;
-    }
+        IndexOutOfBoundsException(const IndexOutOfBoundsException &e): Exception(e) {}
+        IndexOutOfBoundsException &operator =(const IndexOutOfBoundsException &e)
+        {
+            Exception::operator =(e);
+            return *this;
+        }
 };
 }
 
@@ -76,18 +75,19 @@ namespace QinLib
 {
 class InvalidParameterException : public Exception
 {
-public:
-    InvalidParameterException() : Exception(NULL) {}
-    InvalidParameterException(const char* message) : Exception(message) {}
-    InvalidParameterException(const char* file, int line) : Exception(file, line) {}
-    InvalidParameterException(const char* message, const char* file, int line) : Exception(message, file, line) {}
+    public:
+        InvalidParameterException() : Exception(NULL) {}
+        InvalidParameterException(const char *message) : Exception(message) {}
+        InvalidParameterException(const char *file, int line) : Exception(file, line) {}
+        InvalidParameterException(const char *message, const char *file,
+                                  int line) : Exception(message, file, line) {}
 
-    InvalidParameterException(const InvalidParameterException& e): Exception(e) {}
-    InvalidParameterException& operator =(const InvalidParameterException& e)
-    {
-        Exception::operator =(e);
-        return *this;
-    }
+        InvalidParameterException(const InvalidParameterException &e): Exception(e) {}
+        InvalidParameterException &operator =(const InvalidParameterException &e)
+        {
+            Exception::operator =(e);
+            return *this;
+        }
 };
 }
 
@@ -95,18 +95,19 @@ namespace QinLib
 {
 class NoEnoughMemoryException : public Exception
 {
-public:
-    NoEnoughMemoryException() : Exception(NULL) {}
-    NoEnoughMemoryException(const char* message) : Exception(message) {}
-    NoEnoughMemoryException(const char* file, int line) : Exception(file, line) {}
-    NoEnoughMemoryException(const char* message, const char* file, int line) : Exception(message, file, line) {}
+    public:
+        NoEnoughMemoryException() : Exception(NULL) {}
+        NoEnoughMemoryException(const char *message) : Exception(message) {}
+        NoEnoughMemoryException(const char *file, int line) : Exception(file, line) {}
+        NoEnoughMemoryException(const char *message, const char *file,
+                                int line) : Exception(message, file, line) {}
 
-    NoEnoughMemoryException(const NoEnoughMemoryException& e): Exception(e) {}
-    NoEnoughMemoryException& operator =(const NoEnoughMemoryException& e)
-    {
-        Exception::operator =(e);
-        return *this;
-    }
+        NoEnoughMemoryException(const NoEnoughMemoryException &e): Exception(e) {}
+        NoEnoughMemoryException &operator =(const NoEnoughMemoryException &e)
+        {
+            Exception::operator =(e);
+            return *this;
+        }
 };
 }
 
@@ -114,18 +115,19 @@ namespace QinLib
 {
 class NullPointerException : public Exception
 {
-public:
-    NullPointerException() : Exception(NULL) {}
-    NullPointerException(const char* message) : Exception(message) {}
-    NullPointerException(const char* file, int line) : Exception(file, line) {}
-    NullPointerException(const char* message, const char* file, int line) : Exception(message, file, line) {}
+    public:
+        NullPointerException() : Exception(NULL) {}
+        NullPointerException(const char *message) : Exception(message) {}
+        NullPointerException(const char *file, int line) : Exception(file, line) {}
+        NullPointerException(const char *message, const char *file,
+                             int line) : Exception(message, file, line) {}
 
-    NullPointerException(const NullPointerException& e): Exception(e) {}
-    NullPointerException& operator =(const NullPointerException& e)
-    {
-        Exception::operator =(e);
-        return *this;
-    }
+        NullPointerException(const NullPointerException &e): Exception(e) {}
+        NullPointerException &operator =(const NullPointerException &e)
+        {
+            Exception::operator =(e);
+            return *this;
+        }
 };
 }
 
@@ -133,18 +135,19 @@ namespace QinLib
 {
 class InvalidOperationException : public Exception
 {
-public:
-    InvalidOperationException() : Exception(NULL) {}
-    InvalidOperationException(const char* message) : Exception(message) {}
-    InvalidOperationException(const char* file, int line) : Exception(file, line) {}
-    InvalidOperationException(const char* message, const char* file, int line) : Exception(message, file, line) {}
+    public:
+        InvalidOperationException() : Exception(NULL) {}
+        InvalidOperationException(const char *message) : Exception(message) {}
+        InvalidOperationException(const char *file, int line) : Exception(file, line) {}
+        InvalidOperationException(const char *message, const char *file,
+                                  int line) : Exception(message, file, line) {}
 
-    InvalidOperationException(const InvalidOperationException& e): Exception(e) {}
-    InvalidOperationException& operator =(const InvalidOperationException& e)
-    {
-        Exception::operator =(e);
-        return *this;
-    }
+        InvalidOperationException(const InvalidOperationException &e): Exception(e) {}
+        InvalidOperationException &operator =(const InvalidOperationException &e)
+        {
+            Exception::operator =(e);
+            return *this;
+        }
 };
 }
 
