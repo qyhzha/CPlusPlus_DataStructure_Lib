@@ -20,7 +20,6 @@ class Exception : public Object
         Exception(const char *message);
         Exception(const char *file, int line);
         Exception(const char *message, const char *file, int line);
-
         Exception(const Exception &e);
         Exception &operator =(const Exception &e);
 
@@ -41,7 +40,6 @@ class ArithmeticException : public Exception
         ArithmeticException(const char *file, int line) : Exception(file, line) {}
         ArithmeticException(const char *message, const char *file,
                             int line) : Exception(message, file, line) {}
-
         ArithmeticException(const ArithmeticException &e): Exception(e) {}
         ArithmeticException &operator =(const ArithmeticException &e)
         {
@@ -61,7 +59,6 @@ class IndexOutOfBoundsException : public Exception
         IndexOutOfBoundsException(const char *file, int line) : Exception(file, line) {}
         IndexOutOfBoundsException(const char *message, const char *file,
                                   int line) : Exception(message, file, line) {}
-
         IndexOutOfBoundsException(const IndexOutOfBoundsException &e): Exception(e) {}
         IndexOutOfBoundsException &operator =(const IndexOutOfBoundsException &e)
         {
@@ -81,7 +78,6 @@ class InvalidParameterException : public Exception
         InvalidParameterException(const char *file, int line) : Exception(file, line) {}
         InvalidParameterException(const char *message, const char *file,
                                   int line) : Exception(message, file, line) {}
-
         InvalidParameterException(const InvalidParameterException &e): Exception(e) {}
         InvalidParameterException &operator =(const InvalidParameterException &e)
         {
@@ -101,7 +97,6 @@ class NoEnoughMemoryException : public Exception
         NoEnoughMemoryException(const char *file, int line) : Exception(file, line) {}
         NoEnoughMemoryException(const char *message, const char *file,
                                 int line) : Exception(message, file, line) {}
-
         NoEnoughMemoryException(const NoEnoughMemoryException &e): Exception(e) {}
         NoEnoughMemoryException &operator =(const NoEnoughMemoryException &e)
         {
@@ -121,7 +116,6 @@ class NullPointerException : public Exception
         NullPointerException(const char *file, int line) : Exception(file, line) {}
         NullPointerException(const char *message, const char *file,
                              int line) : Exception(message, file, line) {}
-
         NullPointerException(const NullPointerException &e): Exception(e) {}
         NullPointerException &operator =(const NullPointerException &e)
         {
@@ -141,7 +135,6 @@ class InvalidOperationException : public Exception
         InvalidOperationException(const char *file, int line) : Exception(file, line) {}
         InvalidOperationException(const char *message, const char *file,
                                   int line) : Exception(message, file, line) {}
-
         InvalidOperationException(const InvalidOperationException &e): Exception(e) {}
         InvalidOperationException &operator =(const InvalidOperationException &e)
         {
