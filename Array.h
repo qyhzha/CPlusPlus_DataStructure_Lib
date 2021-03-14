@@ -1,5 +1,5 @@
-#ifndef ARRAY_H
-#define ARRAY_H
+#ifndef __ARRAY_H__
+#define __ARRAY_H__
 
 #include "Object.h"
 #include "Exception.h"
@@ -7,9 +7,9 @@
 namespace QinLib
 {
 
-template <typename T>
-class Array : public Object
-{
+    template <typename T>
+    class Array : public Object
+    {
     protected:
         T *m_array;
 
@@ -38,7 +38,7 @@ class Array : public Object
             return ret;
         }
 
-        T &operator [](int i)
+        T &operator[](int i)
         {
             if ((i < 0) || (i >= length()))
             {
@@ -48,9 +48,9 @@ class Array : public Object
             return m_array[i];
         }
 
-        T operator [](int i) const
+        T operator[](int i) const
         {
-            return const_cast<Array<T>&>(*this)[i];
+            return const_cast<Array<T> &>(*this)[i];
         }
 
         T *array() const
@@ -59,7 +59,7 @@ class Array : public Object
         }
 
         virtual int length() const = 0;
-};
+    };
 
 }
 
