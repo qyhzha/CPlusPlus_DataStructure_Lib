@@ -1,4 +1,5 @@
 #include "QException.h"
+#include <cstdio>
 #include <cstring>
 #include <cstdlib>
 

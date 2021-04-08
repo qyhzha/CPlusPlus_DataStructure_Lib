@@ -1,0 +1,10 @@
+/mnt/hgfs/G/DataStructure/CPlusPlus_DataStructure/Build/Main/main.o /mnt/hgfs/G/DataStructure/CPlusPlus_DataStructure/Build/Main/main.dep : src/main.cpp \
+ /mnt/hgfs/G/DataStructure/CPlusPlus_DataStructure/qLib/inc/QListGraph.h \
+ /mnt/hgfs/G/DataStructure/CPlusPlus_DataStructure/qLib/inc/QGraph.h \
+ /mnt/hgfs/G/DataStructure/CPlusPlus_DataStructure/qLib/inc/QObject.h \
+ /mnt/hgfs/G/DataStructure/CPlusPlus_DataStructure/qLib/inc/QException.h \
+ /mnt/hgfs/G/DataStructure/CPlusPlus_DataStructure/qLib/inc/QSharedPointer.h \
+ /mnt/hgfs/G/DataStructure/CPlusPlus_DataStructure/qLib/inc/QPointer.h \
+ /mnt/hgfs/G/DataStructure/CPlusPlus_DataStructure/qLib/inc/QLinkList.h \
+ /mnt/hgfs/G/DataStructure/CPlusPlus_DataStructure/qLib/inc/QList.h \
+ /mnt/hgfs/G/DataStructure/CPlusPlus_DataStructure/qLib/inc/QException.h

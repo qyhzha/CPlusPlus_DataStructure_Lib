@@ -1,0 +1,1 @@
+/mnt/hgfs/G/DataStructure/CPlusPlus_DataStructure/Build/qLib/QString.o /mnt/hgfs/G/DataStructure/CPlusPlus_DataStructure/Build/qLib/QString.dep : src/QString.cpp inc/QString.h inc/QObject.h inc/QException.h

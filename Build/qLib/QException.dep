@@ -1,0 +1,1 @@
+/mnt/hgfs/G/DataStructure/CPlusPlus_DataStructure/Build/qLib/QException.o /mnt/hgfs/G/DataStructure/CPlusPlus_DataStructure/Build/qLib/QException.dep : src/QException.cpp inc/QException.h inc/QObject.h

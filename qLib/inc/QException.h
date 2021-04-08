@@ -35,7 +35,7 @@ namespace qLib
 class QArithmeticException : public QException
 {
     public:
-        QArithmeticException() : QException(NULL)
+        QArithmeticException() : QException(0)
         {}
         QArithmeticException(const char *message) : QException(message)
         {}
@@ -59,7 +59,7 @@ namespace qLib
 class QIndexOutOfBoundsException : public QException
 {
     public:
-        QIndexOutOfBoundsException() : QException(NULL)
+        QIndexOutOfBoundsException() : QException(0)
         {}
         QIndexOutOfBoundsException(const char *message) : QException(message)
         {}
@@ -83,7 +83,7 @@ namespace qLib
 class QInvalidParameterException : public QException
 {
     public:
-        QInvalidParameterException() : QException(NULL)
+        QInvalidParameterException() : QException(0)
         {}
         QInvalidParameterException(const char *message) : QException(message)
         {}
@@ -107,7 +107,7 @@ namespace qLib
 class QNoEnoughMemoryException : public QException
 {
     public:
-        QNoEnoughMemoryException() : QException(NULL)
+        QNoEnoughMemoryException() : QException(0)
         {}
         QNoEnoughMemoryException(const char *message) : QException(message)
         {}
@@ -131,7 +131,7 @@ namespace qLib
 class QNullPointerException : public QException
 {
     public:
-        QNullPointerException() : QException(NULL)
+        QNullPointerException() : QException(0)
         {}
         QNullPointerException(const char *message) : QException(message)
         {}
@@ -155,7 +155,7 @@ namespace qLib
 class QInvalidOperationException : public QException
 {
     public:
-        QInvalidOperationException() : QException(NULL)
+        QInvalidOperationException() : QException(0)
         {}
         QInvalidOperationException(const char *message) : QException(message)
         {}
