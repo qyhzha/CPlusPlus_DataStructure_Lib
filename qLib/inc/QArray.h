@@ -114,14 +114,12 @@ class QArray : public QObject
 
         virtual T get(int i) const
         {
-            T ret;
-
-            if (get(i, ret) != true)
+            if ((i < 0) || (i >= length()))
             {
-                THROW_EXCEPTION(QInvalidParameterException, "Param i is invalid.")
+                THROW_EXCEPTION(QIndexOutOfBoundsException, "Paramer i is invalid.");
             }
 
-            return ret;
+            return m_array[i];
         }
 
         T &operator[](int i)
