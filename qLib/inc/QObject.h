@@ -1,8 +1,6 @@
 #ifndef __QOBJECT_H__
 #define __QOBJECT_H__
 
-#include <cstdio>
-
 namespace qLib
 {
 class QObject
