@@ -5,6 +5,7 @@
 
 namespace qLib
 {
+
 void QException::init(const char *message, const char *file, int line)
 {
     m_message = strdup(message);

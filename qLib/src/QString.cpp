@@ -35,26 +35,27 @@ void QString::init(const char *s)
 {
     m_str = strdup(s);
 
-    if(m_str)
+    if (m_str)
     {
         m_length = strlen(m_str);
     }
     else
     {
-        THROW_EXCEPTION(QNullPointerException, "No enough memory to create string object...");
+        THROW_EXCEPTION(QNullPointerException,
+                        "No enough memory to create string object...");
     }
 }
 
-bool QString::equal(const char* l, const char* r, int len) const
+bool QString::equal(const char *l, const char *r, int len) const
 {
     bool ret = false;
 
-    if(l != NULL && r != NULL)
+    if (l != NULL && r != NULL)
     {
         ret = true;
-        for(int i = 0; i < len; i++)
+        for (int i = 0; i < len; i++)
         {
-            if(l[i] != r[i])
+            if (l[i] != r[i])
             {
                 ret = false;
                 break;
@@ -65,25 +66,25 @@ bool QString::equal(const char* l, const char* r, int len) const
     return ret;
 }
 
-int* QString::makePmt(const char* s) const
+int *QString::makePmt(const char *s) const
 {
     int len = strlen(s);
-    int* pmt = static_cast<int*>(malloc(sizeof(int) * len));
+    int *pmt = static_cast<int *>(malloc(sizeof(int) * len));
 
-    if(pmt)
+    if (pmt)
     {
         int i = 1, ll = 0;
         pmt[0] = 0;
 
-        while(i < len)
+        while (i < len)
         {
-            if(s[i] == s[ll])
+            if (s[i] == s[ll])
             {
                 i++;
                 ll++;
                 pmt[i] = ll;
             }
-            else if(ll == 0)
+            else if (ll == 0)
             {
                 i++;
                 pmt[i] = 0;
@@ -96,7 +97,8 @@ int* QString::makePmt(const char* s) const
     }
     else
     {
-        THROW_EXCEPTION(QNoEnoughMemoryException, "No enough memory to find dest string...");
+        THROW_EXCEPTION(QNoEnoughMemoryException,
+                        "No enough memory to find dest string...");
     }
 
     return pmt;
@@ -107,12 +109,12 @@ int QString::length() const
     return m_length;
 }
 
-const char* QString::str() const
+const char *QString::str() const
 {
     return m_str;
 }
 
-QString& QString::trim()
+QString &QString::trim()
 {
     int b = 0;
     int e = m_length - 1;
@@ -120,7 +122,7 @@ QString& QString::trim()
     while (m_str[b] == ' ') b++;
     while (m_str[e] == ' ') e--;
 
-    if(b == 0)
+    if (b == 0)
     {
         m_str[e + 1] = '\0';
 
@@ -128,7 +130,7 @@ QString& QString::trim()
     }
     else
     {
-        for(int i = 0, j = b; j <= e; i++, j++)
+        for (int i = 0, j = b; j <= e; i++, j++)
         {
             m_str[i] = m_str[j];
         }
@@ -145,12 +147,12 @@ QString QString::sub(int i, int len) const
 {
     QString ret;
 
-    if((i >= 0) && (i < m_length))
+    if ((i >= 0) && (i < m_length))
     {
-        if(len > 0)
+        if (len > 0)
         {
             len = ((i + len) < m_length) ? len : m_length - i;
-            char* str = static_cast<char*>(malloc(len + 1));
+            char *str = static_cast<char *>(malloc(len + 1));
 
             strncpy(str, m_str + i, len);
             str[len] = '\0';
@@ -166,20 +168,20 @@ QString QString::sub(int i, int len) const
     return ret;
 }
 
-QString& QString::operator =(const QString& s)
+QString &QString::operator =(const QString &s)
 {
     return (*this = s.m_str);
 }
 
-QString& QString::operator =(const char* s)
+QString &QString::operator =(const char *s)
 {
-    if(m_str != s)
+    if (m_str != s)
     {
         s = s ? s : "";
 
-        char* str = strdup(s);
+        char *str = strdup(s);
 
-        if(str)
+        if (str)
         {
             free(m_str);
             m_str = str;
@@ -194,116 +196,116 @@ QString& QString::operator =(const char* s)
     return *this;
 }
 
-QString& QString::operator =(char c)
+QString &QString::operator =(char c)
 {
     char s[] = {c, '\0'};
 
     return (*this = s);
 }
 
-bool QString::operator ==(const QString& s) const
+bool QString::operator ==(const QString &s) const
 {
     return (strcmp(this->m_str, s.m_str) == 0);
 }
 
-bool QString::operator ==(const char* s) const
+bool QString::operator ==(const char *s) const
 {
     return (strcmp(this->m_str, s ? s : "") == 0);
 }
 
-bool QString::operator !=(const QString& s) const
+bool QString::operator !=(const QString &s) const
 {
     return !(*this == s);
 }
 
-bool QString::operator !=(const char* s) const
+bool QString::operator !=(const char *s) const
 {
     return !(*this == s);
 }
 
-bool QString::operator >(const QString& s) const
+bool QString::operator >(const QString &s) const
 {
     return (strcmp(this->m_str, s.m_str) > 0);
 }
 
-bool QString::operator >(const char* s) const
+bool QString::operator >(const char *s) const
 {
     return (strcmp(this->m_str, s ? s : "") > 0);
 }
 
-bool QString::operator <(const QString& s) const
+bool QString::operator <(const QString &s) const
 {
     return (strcmp(this->m_str, s.m_str) < 0);
 }
 
-bool QString::operator <(const char* s) const
+bool QString::operator <(const char *s) const
 {
     return (strcmp(this->m_str, s ? s : "") < 0);
 }
 
-bool QString::operator >=(const QString& s) const
+bool QString::operator >=(const QString &s) const
 {
     return (strcmp(this->m_str, s.m_str) >= 0);
 }
 
-bool QString::operator >=(const char* s) const
+bool QString::operator >=(const char *s) const
 {
     return (strcmp(this->m_str, s ? s : "") >= 0);
 }
 
-bool QString::operator <=(const QString& s) const
+bool QString::operator <=(const QString &s) const
 {
     return (strcmp(this->m_str, s.m_str) <= 0);
 }
 
-bool QString::operator <=(const char* s) const
+bool QString::operator <=(const char *s) const
 {
     return (strcmp(this->m_str, s ? s : "") <= 0);
 }
 
-QString QString::operator +(const QString& s) const
+QString QString::operator +(const QString &s) const
 {
     return (*this + s.m_str);
 }
 
-QString QString::operator +(const char* s) const
+QString QString::operator +(const char *s) const
 {
     return QString().insert(0, s).insert(0, m_str);
 }
 
-QString& QString::operator +=(const QString& s)
+QString &QString::operator +=(const QString &s)
 {
     return *this = *this + s;
 }
 
-QString& QString::operator +=(const char* s)
+QString &QString::operator +=(const char *s)
 {
     return *this = *this + s;
 }
 
-QString QString::operator -(const QString& s) const
+QString QString::operator -(const QString &s) const
 {
     return (*this - s.m_str);
 }
 
-QString QString::operator -(const char* s) const
+QString QString::operator -(const char *s) const
 {
     return QString(*this).remove(s);
 }
 
-QString& QString::operator -=(const QString& s)
+QString &QString::operator -=(const QString &s)
 {
     return *this = *this - s;
 }
 
-QString& QString::operator -=(const char* s)
+QString &QString::operator -=(const char *s)
 {
     return *this = *this - s;
 }
 
-char& QString::operator [](int i)
+char &QString::operator [](int i)
 {
-    if((i < 0) || (i >= m_length))
+    if ((i < 0) || (i >= m_length))
     {
         THROW_EXCEPTION(QInvalidParameterException, "Paramer i is invalid...");
     }
@@ -313,19 +315,19 @@ char& QString::operator [](int i)
 
 char QString::operator [](int i) const
 {
-    return const_cast<QString&>(*this)[i];
+    return const_cast<QString &>(*this)[i];
 }
 
-bool QString::startWith(const QString& s) const
+bool QString::startWith(const QString &s) const
 {
     return startWith(s.m_str);
 }
 
-bool QString::startWith(const char* s) const
+bool QString::startWith(const char *s) const
 {
     bool ret = s;
 
-    if(ret)
+    if (ret)
     {
         int len = strlen(s);
 
@@ -335,16 +337,16 @@ bool QString::startWith(const char* s) const
     return ret;
 }
 
-bool QString::endOf(const QString& s) const
+bool QString::endOf(const QString &s) const
 {
     return endOf(s.m_str);
 }
 
-bool QString::endOf(const char* s) const
+bool QString::endOf(const char *s) const
 {
     bool ret = s;
 
-    if(ret)
+    if (ret)
     {
         int len = strlen(s);
 
@@ -354,21 +356,21 @@ bool QString::endOf(const char* s) const
     return ret;
 }
 
-QString& QString::insert(int i, const QString &s)
+QString &QString::insert(int i, const QString &s)
 {
     return insert(i, s.m_str);
 }
 
-QString& QString::insert(int i, const char* s)
+QString &QString::insert(int i, const char *s)
 {
-    if((i >= 0) && (i <= m_length))
+    if ((i >= 0) && (i <= m_length))
     {
-        if((s != NULL) && (s[0] != '\0'))
+        if ((s != NULL) && (s[0] != '\0'))
         {
             int len = strlen(s);
-            char* str = static_cast<char*>(malloc(m_length + len + 1));
+            char *str = static_cast<char *>(malloc(m_length + len + 1));
 
-            if(str)
+            if (str)
             {
                 strncpy(str, m_str, i);
                 strncpy(str + i, s, len);
@@ -380,7 +382,8 @@ QString& QString::insert(int i, const char* s)
             }
             else
             {
-                THROW_EXCEPTION(QNoEnoughMemoryException, "No enough memory to insert string...");
+                THROW_EXCEPTION(QNoEnoughMemoryException,
+                                "No enough memory to insert string...");
             }
         }
     }
@@ -392,12 +395,12 @@ QString& QString::insert(int i, const char* s)
     return *this;
 }
 
-int QString::indexOf(const QString& s) const
+int QString::indexOf(const QString &s) const
 {
     return indexOf(s.m_str);
 }
 
-int QString::indexOf(const char* s) const
+int QString::indexOf(const char *s) const
 {
     return indexOf(0, s);
 }
@@ -407,29 +410,29 @@ int QString::indexOf(int start, const QString &s) const
     return indexOf(start, s.m_str);
 }
 
-int QString::indexOf(int start, const char* s) const
+int QString::indexOf(int start, const char *s) const
 {
     int ret = -1;
     int len = strlen(s);
 
-    if((start >= 0) && (start < m_length))
+    if ((start >= 0) && (start < m_length))
     {
-        if((s != NULL) && (len > 0) && (len < m_length))
+        if ((s != NULL) && (len > 0) && (len < m_length))
         {
-            int* pmt = makePmt(s);
+            int *pmt = makePmt(s);
 
-            if(pmt)
+            if (pmt)
             {
                 int i = start, j = 0;
 
-                while((i < m_length) && (j < len))
+                while ((i < m_length) && (j < len))
                 {
-                    if(m_str[i] == s[j])
+                    if (m_str[i] == s[j])
                     {
                         i++;
                         j++;
                     }
-                    else if(j == 0)
+                    else if (j == 0)
                     {
                         i++;
                     }
@@ -439,7 +442,7 @@ int QString::indexOf(int start, const char* s) const
                     }
                 }
 
-                if(j == len)
+                if (j == len)
                 {
                     ret = i - len;
                 }
@@ -456,14 +459,14 @@ int QString::indexOf(int start, const char* s) const
     return ret;
 }
 
-QString& QString::remove(int i, int len)
+QString &QString::remove(int i, int len)
 {
-    if( (i >= 0) && (i < m_length) )
+    if ((i >= 0) && (i < m_length))
     {
         int m = i;
         int n = i + len;
 
-        while ( (m < n) && (n < m_length) )
+        while ((m < n) && (n < m_length))
         {
             m_str[m++] = m_str[n++];
         }
@@ -480,34 +483,34 @@ QString& QString::remove(int i, int len)
     return *this;
 }
 
-QString& QString::remove(const QString& s)
+QString &QString::remove(const QString &s)
 {
     return remove(s.m_str);
 }
 
-QString& QString::remove(const char* s)
+QString &QString::remove(const char *s)
 {
     return remove(indexOf(s), strlen(s));
 }
 
-QString& QString::replace(const char* t, const char* s)
+QString &QString::replace(const char *t, const char *s)
 {
     int index = indexOf(t);
 
     return remove(index, strlen(t)).insert(index, s);
 }
 
-QString& QString::replace(const char* t, const QString& s)
+QString &QString::replace(const char *t, const QString &s)
 {
     return replace(t, s.m_str);
 }
 
-QString& QString::replace(const QString& t, const char* s)
+QString &QString::replace(const QString &t, const char *s)
 {
     return replace(t.m_str, s);
 }
 
-QString& QString::replace(const QString& t, const QString& s)
+QString &QString::replace(const QString &t, const QString &s)
 {
     return replace(t.m_str, s.m_str);
 }
