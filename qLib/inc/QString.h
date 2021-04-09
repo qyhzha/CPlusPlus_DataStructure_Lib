@@ -2,7 +2,6 @@
 #define __QSTRING_H__
 
 #include "QObject.h"
-#include "QException.h"
 
 namespace qLib
 {

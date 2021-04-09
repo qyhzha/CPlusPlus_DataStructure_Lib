@@ -1,38 +1,21 @@
 #include <cstdlib>
 #include <cstring>
 #include "QString.h"
+#include "QException.h"
 
 namespace qLib
 {
 
-QString::QString()
-{
-    init("");
-}
-
-QString::QString(const char *s)
-{
-    init(s ? s : "");
-}
-
-QString::QString(const QString &s)
-{
-    init(s.m_str);
-}
-
-QString::QString(char c)
-{
-    char s[] = {c, '\0'};
-    init(s);
-}
-
-QString::~QString()
-{
-    free(m_str);
-}
-
 void QString::init(const char *s)
 {
+    m_str = NULL;
+    m_length = 0;
+
+    if (s == NULL)
+    {
+        return;
+    }
+
     m_str = strdup(s);
 
     if (m_str)
@@ -41,8 +24,7 @@ void QString::init(const char *s)
     }
     else
     {
-        THROW_EXCEPTION(QNullPointerException,
-                        "No enough memory to create string object...");
+        THROW_EXCEPTION(QNullPointerException, "No enough memory to create string object...");
     }
 }
 
@@ -97,11 +79,39 @@ int *QString::makePmt(const char *s) const
     }
     else
     {
-        THROW_EXCEPTION(QNoEnoughMemoryException,
-                        "No enough memory to find dest string...");
+        THROW_EXCEPTION(QNoEnoughMemoryException, "No enough memory to find dest string...");
     }
 
     return pmt;
+}
+
+QString::QString()
+{
+    init("");
+}
+
+QString::QString(const char *s)
+{
+    init(s ? s : "");
+}
+
+QString::QString(const QString &s)
+{
+    init(s.m_str);
+}
+
+QString::QString(char c)
+{
+    char s[] = {c, '\0'};
+    init(s);
+}
+
+QString::~QString()
+{
+    if (m_str != NULL)
+    {
+        free(m_str);
+    }
 }
 
 int QString::length() const
@@ -162,7 +172,7 @@ QString QString::sub(int i, int len) const
     }
     else
     {
-        THROW_EXCEPTION(QInvalidParameterException, "Paramer i is invalid...");
+        THROW_EXCEPTION(QInvalidParameterException, "Paramer is invalid.");
     }
 
     return ret;
