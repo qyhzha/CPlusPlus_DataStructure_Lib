@@ -17,7 +17,10 @@ void *QObject::operator new (size_t size) throw()
 
 void QObject::operator delete (void *p)
 {
-    if (p != NULL) free(p);
+    if (p != NULL)
+    {
+        free(p);
+    }
 }
 
 void *QObject::operator new[](size_t size) throw()
@@ -27,7 +30,10 @@ void *QObject::operator new[](size_t size) throw()
 
 void QObject::operator delete[](void *p)
 {
-    if (p != NULL) free(p);
+    if (p != NULL)
+    {
+        free(p);
+    }
 }
 
 const char *QObject::objectName() const
@@ -37,13 +43,19 @@ const char *QObject::objectName() const
 
 void QObject::setObjectName(const char *name)
 {
-    if (m_objectName != NULL) free(m_objectName);
+    if (m_objectName != NULL)
+    {
+        free(m_objectName);
+    }
     m_objectName = strdup(name);
 }
 
 QObject::~QObject()
 {
-    if (m_objectName != NULL) free(m_objectName);
+    if (m_objectName != NULL)
+    {
+        free(m_objectName);
+    }
 }
 
 }

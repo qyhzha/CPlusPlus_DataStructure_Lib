@@ -8,7 +8,14 @@ namespace qLib
 
 void QException::init(const char *message, const char *file, int line)
 {
-    m_message = strdup(message);
+    if (message != NULL)
+    {
+        m_message = strdup(message);
+    }
+    else
+    {
+        m_message = NULL;
+    }
 
     if (file != NULL)
     {
@@ -29,6 +36,11 @@ void QException::init(const char *message, const char *file, int line)
     {
         m_location = NULL;
     }
+}
+
+QException::QException()
+{
+    init(NULL, NULL, 0);
 }
 
 QException::QException(const char *message)
