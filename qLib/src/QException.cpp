@@ -68,8 +68,8 @@ QException &QException::operator =(const QException &e)
 {
     if (this != &e)
     {
-        free(m_message);
-        free(m_location);
+        if (m_message) free(m_message);
+        if (m_location) free(m_location);
 
         m_message = strdup(e.m_message);
         m_location = strdup(e.m_location);
@@ -90,8 +90,8 @@ const char *QException::location() const
 
 QException::~QException()
 {
-    free(m_message);
-    free(m_location);
+    if (m_message) free(m_message);
+    if (m_location) free(m_location);
 }
 
 }

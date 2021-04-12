@@ -21,5 +21,6 @@
         "streambuf": "cpp",
         "type_traits": "cpp",
         "typeinfo": "cpp"
-    }
+    },
+    "restructuredtext.confPath": ""
 }
