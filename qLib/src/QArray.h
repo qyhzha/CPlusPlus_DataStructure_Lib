@@ -1,5 +1,5 @@
-#ifndef __ARRAY_H__
-#define __ARRAY_H__
+#ifndef __QARRAY_H__
+#define __QARRAY_H__
 
 #include "QContainer.h"
 #include "QException.h"
@@ -62,14 +62,14 @@ class QArray : public QContainer<T>
 
         QArray(const QArray<T> &obj)
         {
-            update(copy(obj.this->m_space, obj.this->m_size), obj.this->m_size);
+            update(copy(obj.m_space, obj.m_size), obj.m_size);
         }
 
         QArray &operator =(const QArray<T> &obj)
         {
             if (this != &obj)
             {
-                update(copy(obj.this->m_space, obj.this->m_size), obj.this->m_size);
+                update(copy(obj.m_space, obj.m_size), obj.m_size);
             }
         }
 
@@ -78,11 +78,11 @@ class QArray : public QContainer<T>
             delete[] this->m_space;
         }
 
-        void resize(int length)
+        virtual void resize(int length)
         {
             if (this->m_size != length)
             {
-                update(copy(this->this->m_space, this->m_size, length), length);
+                update(copy(this->m_space, this->m_size, length), length);
             }
         }
 

@@ -1,5 +1,5 @@
-#ifndef __EXCEPTION_H__
-#define __EXCEPTION_H__
+#ifndef __QEXCEPTION_H__
+#define __QEXCEPTION_H__
 
 #include "QObject.h"
 

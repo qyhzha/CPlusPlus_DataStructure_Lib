@@ -42,6 +42,7 @@ class QContainer : public QObject
 
         virtual bool set(int i, const T &e) = 0;
         virtual bool get(int i, T &e) const = 0;
+        virtual T get(int i) const = 0;
 };
 
 }
