@@ -1,26 +1,23 @@
 #ifndef __ARRAY_H__
 #define __ARRAY_H__
 
-#include "QObject.h"
+#include "QContainer.h"
 #include "QException.h"
 
 namespace qLib
 {
 
 template <typename T>
-class QArray : public QObject
+class QArray : public QContainer<T>
 {
     protected:
-        T *m_array;
-        int m_length;
-
         T *copy(T *array, int length)
         {
             T *ret = new T[length];
 
             if (ret != NULL)
             {
-                for (int i = 0; (i < len) && (i < newlen); i++)
+                for (int i = 0; i < length; i++)
                 {
                     ret[i] = array[i];
                 }
@@ -31,60 +28,61 @@ class QArray : public QObject
 
         void update(T *array, int length)
         {
-            if (array != NULL)
+            this->m_space = NULL;
+            this->m_size = 0;
+
+            if (array == NULL || length <= 0)
             {
-                T *temp = this->m_array;
-
-                this->m_array = array;
-                this->m_length = length;
-
-                delete temp;
+                THROW_EXCEPTION(QInvalidParameterException, "Paramter is invalid.")
+                return;
             }
+
+            T *temp = this->m_space;
+
+            this->m_space = array;
+            this->m_size = length;
+
+            delete[] temp;
         }
 
     public:
         QArray(int length)
         {
-            m_length = 0;
-            m_array = new T[length];
+            this->m_size = 0;
+            this->m_space = new T[length];
 
-            if (m_array == NULL)
+            if (this->m_space == NULL)
             {
                 THROW_EXCEPTION(QNoEnoughMemoryException, "No memory to create QArray Object.")
                 return;
             }
 
-            m_length = length;
+            this->m_size = length;
         }
 
         QArray(const QArray<T> &obj)
         {
-            update(copy(obj.m_array, obj.m_length, obj.m_length), obj.m_length);
+            update(copy(obj.this->m_space, obj.this->m_size), obj.this->m_size);
         }
 
         QArray &operator =(const QArray<T> &obj)
         {
             if (this != &obj)
             {
-                update(copy(obj.m_array, obj.m_length, obj.m_length), obj.m_length);
+                update(copy(obj.this->m_space, obj.this->m_size), obj.this->m_size);
             }
         }
 
         ~QArray()
         {
-            delete[] m_array;
-        }
-
-        int length() const
-        {
-            return m_length;
+            delete[] this->m_space;
         }
 
         void resize(int length)
         {
-            if (m_length != length)
+            if (this->m_size != length)
             {
-                update(copy(this->m_array, m_length, length), length);
+                update(copy(this->this->m_space, this->m_size, length), length);
             }
         }
 
@@ -94,7 +92,7 @@ class QArray : public QObject
 
             if (ret)
             {
-                m_array[i] = e;
+                this->m_space[i] = e;
             }
 
             return ret;
@@ -106,7 +104,7 @@ class QArray : public QObject
 
             if (ret)
             {
-                e = m_array[i];
+                e = this->m_space[i];
             }
 
             return ret;
@@ -119,7 +117,7 @@ class QArray : public QObject
                 THROW_EXCEPTION(QIndexOutOfBoundsException, "Paramer i is invalid.");
             }
 
-            return m_array[i];
+            return this->m_space[i];
         }
 
         T &operator[](int i)
@@ -129,7 +127,7 @@ class QArray : public QObject
                 THROW_EXCEPTION(QIndexOutOfBoundsException, "Paramer i is invalid.");
             }
 
-            return m_array[i];
+            return this->m_space[i];
         }
 
         T operator[](int i) const
@@ -139,7 +137,7 @@ class QArray : public QObject
 
         T *array() const
         {
-            return m_array;
+            return this->m_space;
         }
 };
 
