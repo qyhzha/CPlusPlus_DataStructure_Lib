@@ -22,14 +22,17 @@ void QStringTest(void)
         }
 
         str.replace("good", "bad");
+        str.trim();
 
         qLib::qDebug() << "str : " << str << qLib::endl;
 
         str.remove("yonghang.qin");
+        str.trim();
 
         qLib::qDebug() << "str : " << str << qLib::endl;
 
         str -= "is";
+        str.trim();
 
         qLib::qDebug() << "str : " << str << qLib::endl;
 
