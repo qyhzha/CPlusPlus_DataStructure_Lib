@@ -1,10 +1,10 @@
 #include <iostream>
 
-extern void QStringTest(void);
+extern void QArrayTest(void);
 
 int main()
 {
-    QStringTest();
+    QArrayTest();
 
     return 0;
 }
