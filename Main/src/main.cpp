@@ -1,10 +1,10 @@
 #include <iostream>
 
-extern void QExceptionTest(void);
+extern void QDebugTest(void);
 
 int main()
 {
-    QExceptionTest();
+    QDebugTest();
 
     return 0;
 }
