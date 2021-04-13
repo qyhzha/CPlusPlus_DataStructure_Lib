@@ -2,9 +2,12 @@
 #include "QException.h"
 #include <cstdio>
 #include <cstring>
+#include <cstdarg>
 
 namespace qLib
 {
+
+static const int QDEBUG_OUTPUT_MAX_LENGTH = 2048;
 
 const char *endl = "\r\n";
 
@@ -56,6 +59,26 @@ QDebug &QDebug::operator<<(const char *buffer)
 QDebug &QDebug::operator<<(const QString &string)
 {
     return this->operator<<(string.str());
+}
+
+void QDebug::debug(const char *format, ...)
+{
+    char *buffer = new char[QDEBUG_OUTPUT_MAX_LENGTH];
+    if (buffer == NULL)
+    {
+        THROW_EXCEPTION(QNoEnoughMemoryException, "No memory to create QDebug debug buffer.");
+        return;
+    }
+
+    va_list ap;
+
+    va_start(ap, format);
+    vsnprintf(buffer, QDEBUG_OUTPUT_MAX_LENGTH, format, ap);
+    va_end(ap);
+
+    debug() << buffer;
+
+    delete []buffer;
 }
 
 void QDebug::output(const char *buffer)

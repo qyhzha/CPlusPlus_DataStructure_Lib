@@ -17,6 +17,11 @@ class QContainer : public QObject
             return m_size;
         }
 
+        virtual int length() const
+        {
+            return m_size;
+        }
+
         virtual int capacity() const
         {
             return m_size;
