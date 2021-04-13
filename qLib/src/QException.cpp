@@ -23,7 +23,7 @@ void QException::init(const char *message, const char *file, int line)
 
         int slLen = snprintf(sl, sizeof(sl), "%d", line);
 
-        m_location = static_cast<char *>(malloc(strlen(message) + slLen + 2));
+        m_location = static_cast<char *>(malloc(strlen(file) + slLen + 2));
 
         if (m_location != NULL)
         {
