@@ -28,9 +28,6 @@ class QArray : public QContainer<T>
 
         void update(T *array, int length)
         {
-            this->m_space = NULL;
-            this->m_size = 0;
-
             if (array == NULL || length <= 0)
             {
                 THROW_EXCEPTION(QInvalidParameterException, "Paramter is invalid.");
@@ -42,7 +39,7 @@ class QArray : public QContainer<T>
             this->m_space = array;
             this->m_size = length;
 
-            delete[] temp;
+            delete []temp;
         }
 
     public:

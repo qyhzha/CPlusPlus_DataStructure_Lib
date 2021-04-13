@@ -10,7 +10,9 @@ protected:
 public:
     Test() : m_value(0)
     {
-        qLib::qDebug() << "Test()" << qLib::endl;
+        static int index = 0;
+        qLib::qDebug() << "Test(" << index << ")" << qLib::endl;
+        index++;
     }
 
     Test(const Test& obj)
@@ -31,7 +33,9 @@ public:
 
     ~Test()
     {
-        qLib::qDebug() << "~Test()" << qLib::endl;
+        static int index = 0;
+        qLib::qDebug() << "~Test(" << index << ")" << qLib::endl;
+        index++;
     }
 };
 

@@ -52,6 +52,7 @@ QDebug &QDebug::operator<<(const char *buffer)
 
     memcpy(this->m_buffer + this->m_length, buffer, length);
     this->m_length += length;
+    this->m_buffer[this->m_length] = '\0';
 
     return *this;
 }
