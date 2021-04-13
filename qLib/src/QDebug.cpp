@@ -45,7 +45,7 @@ QDebug &QDebug::operator<<(const char *buffer)
         return *this;
     }
 
-    memcpy(this->m_buffer, buffer, length);
+    memcpy(this->m_buffer + this->m_length, buffer, length);
     this->m_length += length;
 
     return *this;
