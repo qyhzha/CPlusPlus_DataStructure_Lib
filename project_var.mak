@@ -1,5 +1,6 @@
 MODULES := Main \
-           qLib
+           qLib \
+           Test
 
 ROOT := $(realpath .)
 DIR_BUILD := Build

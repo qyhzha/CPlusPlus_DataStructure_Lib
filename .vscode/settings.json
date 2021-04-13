@@ -21,7 +21,9 @@
         "streambuf": "cpp",
         "type_traits": "cpp",
         "typeinfo": "cpp",
-        "qexception": "cpp"
+        "qexception": "cpp",
+        "system_error": "cpp",
+        "stdexcept": "cpp"
     },
     "restructuredtext.confPath": ""
 }
