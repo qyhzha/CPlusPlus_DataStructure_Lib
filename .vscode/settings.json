@@ -23,7 +23,8 @@
         "typeinfo": "cpp",
         "qexception": "cpp",
         "system_error": "cpp",
-        "stdexcept": "cpp"
+        "stdexcept": "cpp",
+        "string": "c"
     },
     "restructuredtext.confPath": ""
 }
