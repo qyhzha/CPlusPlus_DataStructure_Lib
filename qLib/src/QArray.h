@@ -11,6 +11,8 @@ template <typename T>
 class QArray : public QContainer<T>
 {
     protected:
+        T *m_space;
+
         T *copy(T *array, int length)
         {
             T *ret = new T[length];
@@ -136,6 +138,11 @@ class QArray : public QContainer<T>
         }
 
         T *array() const
+        {
+            return this->m_space;
+        }
+
+        const T *constArray() const
         {
             return this->m_space;
         }

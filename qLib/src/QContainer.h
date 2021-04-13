@@ -9,7 +9,6 @@ template <typename T>
 class QContainer : public QObject
 {
     protected:
-        T *m_space;
         int m_size;
 
     public:
@@ -26,16 +25,6 @@ class QContainer : public QObject
         virtual bool isEmpty() const
         {
             return (m_size == 0);
-        }
-
-        virtual T *data() const
-        {
-            return m_space;
-        }
-
-        virtual const T *constData() const
-        {
-            return m_space;
         }
 
         virtual void resize(int size) = 0;
