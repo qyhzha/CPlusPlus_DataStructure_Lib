@@ -12,27 +12,25 @@ class QContainer : public QObject
         int m_size;
 
     public:
-        virtual int size() const
+        inline int size() const
         {
             return m_size;
         }
 
-        virtual int length() const
+        inline int length() const
         {
             return m_size;
         }
 
-        virtual int capacity() const
+        inline int capacity() const
         {
             return m_size;
         }
 
-        virtual bool isEmpty() const
+        inline bool isEmpty() const
         {
             return (m_size == 0);
         }
-
-        virtual void resize(int size) = 0;
 
         virtual bool set(int i, const T &e) = 0;
         virtual bool get(int i, T &e) const = 0;

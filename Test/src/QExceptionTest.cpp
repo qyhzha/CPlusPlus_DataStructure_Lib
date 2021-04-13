@@ -3,7 +3,7 @@
 
 using namespace qLib;
 
-void QExceptionTest(void)
+void QExceptionTest()
 {
     try
     {

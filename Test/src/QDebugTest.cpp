@@ -2,7 +2,7 @@
 #include "QException"
 #include <iostream>
 
-void QDebugTest(void)
+void QDebugTest()
 {
     try
     {

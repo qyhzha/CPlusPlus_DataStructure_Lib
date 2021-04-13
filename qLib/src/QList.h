@@ -1,8 +1,10 @@
 #ifndef __QLIST_H__
 #define __QLIST_H__
 
+#include "QObject.h"
 #include "QAbstractList.h"
 #include "QException.h"
+#include <cstdlib>
 
 namespace qLib
 {
@@ -17,9 +19,8 @@ class QList : public QAbstractList<T>
         };
 
         Node *m_header;
-        int m_length;
-        int m_step;
         Node *m_current;
+        int m_step;
 
         Node *position(int i) const
         {
@@ -33,94 +34,100 @@ class QList : public QAbstractList<T>
             return ret;
         }
 
-        virtual Node *create()
+        virtual Node *createNode()
         {
             return new Node();
         }
 
-        virtual void destroy(Node *node)
+        virtual void destroyNode(Node *node)
         {
             delete node;
         }
     public:
-        QLinkList()
+        QList()
         {
-            m_header = reinterpret_cast<Node *>(malloc(sizeof(Node)));
-            m_header->next = NULL;
-            m_length = 0;
-            m_step = 1;
-            m_current = NULL;
-        }
+            this->m_header = reinterpret_cast<Node *>(malloc(sizeof(Node)));
+            this->m_current = NULL;
+            this->m_size = 0;
+            this->m_step = 1;
 
-        T &operator [](int i)
-        {
-            if ((i < 0) || (i >= m_length))
+            if (this->m_header == NULL)
             {
-                THROW_EXCEPTION(QIndexOutOfBoundsException, "Index i out of bounds...");
+                THROW_EXCEPTION(QNoEnoughMemoryException, "No memory to create QList Note object.");
+                return;
             }
 
-            return position(i)->value;
+            this->m_header->next = NULL;
         }
 
-        bool insert(const T &obj)
+        ~QList()
         {
-            return insert(m_length, obj);
+            clear();
+            free(this->m_header);
         }
 
         bool insert(int i, const T &e)
         {
-            bool ret = ((i >= 0) && (i <= m_length));
+            bool ret = ((i >= 0) && (i <= this->m_size));
 
             if (ret)
             {
-                Node *node = create();
+                Node *node = createNode();
 
-                if (node != NULL)
+                if (node == NULL)
                 {
-                    Node *current = position(i - 1);
-
-                    node->value = e;
-                    node->next = current->next;
-                    current->next = node;
-
-                    m_length++;
+                    THROW_EXCEPTION(QNoEnoughMemoryException, "No enough memory to insert new node...");
+                    return false;
                 }
-                else
-                {
-                    THROW_EXCEPTION(QNoEnoughMemoryException,
-                                    "No enough memory to insert new node...");
-                }
+
+                Node *current = position(i - 1);
+
+                node->value = e;
+                node->next = current->next;
+                current->next = node;
+
+                this->m_size++;
             }
 
             return ret;
         }
 
+        bool insert(const T &obj)
+        {
+            return insert(this->m_size, obj);
+        }
+
         bool remove(int i)
         {
-            bool ret = ((i >= 0) && (i < m_length));
+            bool ret = ((i >= 0) && (i < this->m_size));
 
             if (ret)
             {
                 Node *current = position(i - 1);
                 Node *toDel = current->next;
 
-                if (m_current == toDel)
+                if (this->m_current == toDel)
                 {
-                    m_current = toDel->next;
+                    this->m_current = toDel->next;
                 }
 
                 current->next = toDel->next;
-                m_length--;
+                this->m_size--;
 
-                destroy(toDel);
+                destroyNode(toDel);
             }
 
             return ret;
         }
 
+        bool remove()
+        {
+            return remove(this->m_size - 1);
+        }
+
         bool set(int i, const T &e)
         {
-            bool ret = ((i >= 0) && (i < m_length));
+            bool ret = ((i >= 0) && (i < this->m_size));
 
             if (ret)
             {
@@ -132,11 +139,11 @@ class QList : public QAbstractList<T>
 
         bool get(int i, T &e) const
         {
-            bool ret = ((i >= 0) && (i < m_length));
+            bool ret = ((i >= 0) && (i < this->m_size));
 
             if (ret)
             {
-                e = const_cast<QLinkList<T>&>(*this).position(i)->value;
+                e = position(i)->value;
             }
 
             return ret;
@@ -144,17 +151,19 @@ class QList : public QAbstractList<T>
 
         virtual T get(int i) const
         {
-            return const_cast<QLinkList<T>&>(*this)[i];
-        }
+            T ret;
 
-        int length() const
-        {
-            return m_length;
+            if (get(i, ret) != true)
+            {
+                THROW_EXCEPTION(QInvalidParameterException, "Paramter is invalid.");
+            }
+
+            return ret;
         }
 
         void clear()
         {
-            while (m_length > 0)
+            while (this->m_size > 0)
             {
                 remove(0);
             }
@@ -162,12 +171,12 @@ class QList : public QAbstractList<T>
 
         virtual bool move(int i, int step = 1) const
         {
-            bool ret = (i >= 0) && (i < m_length) && (step > 0);
+            bool ret = (i >= 0) && (i < this->m_size) && (step > 0);
 
             if (ret)
             {
-                const_cast<QLinkList<T>&>(*this).m_current = position(i);
-                const_cast<QLinkList<T>&>(*this).m_step = step;
+                const_cast<QList<T>&>(*this).m_current = position(i);
+                const_cast<QList<T>&>(*this).m_step = step;
             }
 
             return ret;
@@ -175,7 +184,7 @@ class QList : public QAbstractList<T>
 
         virtual bool end() const
         {
-            return (m_current == NULL);
+            return (this->m_current == NULL);
         }
 
         virtual T current() const
@@ -183,6 +192,8 @@ class QList : public QAbstractList<T>
             if (end())
             {
                 THROW_EXCEPTION(QInvalidOperationException, "No value at current position...");
+                T ret;
+                return ret;
             }
 
             return m_current->value;
@@ -193,7 +204,7 @@ class QList : public QAbstractList<T>
             int i = 0;
             while ((i < m_step) && !end())
             {
-                const_cast<QLinkList<T>&>(*this).m_current = m_current->next;
+                const_cast<QList<T>&>(*this).m_current = m_current->next;
                 i++;
             }
 
@@ -205,7 +216,7 @@ class QList : public QAbstractList<T>
             int ret = -1;
             int i = 0;
 
-            Node *node = const_cast<QLinkList<T>&>(*this).m_header->next;
+            Node *node = m_header->next;
 
             while (node != NULL)
             {
@@ -214,23 +225,15 @@ class QList : public QAbstractList<T>
                     ret = i;
                     break;
                 }
-                else
-                {
-                    i++;
-                    node = node->next;
-                }
+
+                i++;
+                node = node->next;
             }
 
             return ret;
-        }
-
-        ~QLinkList()
-        {
-            clear();
-            free(m_header);
         }
 };
 
 }
 
-#endif // LIST_H
+#endif
