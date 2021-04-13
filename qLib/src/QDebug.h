@@ -43,7 +43,7 @@ class QDebug : public QObject
 
         QDebug &operator<<(int value);
         QDebug &operator<<(const char *buffer);
-        QDebug &operator<<(const QString &string) {}
+        QDebug &operator<<(const QString &string);
 
         static inline QDebug debug() { return QDebug(); }
         static inline void debug(int value) { debug() << value; }
