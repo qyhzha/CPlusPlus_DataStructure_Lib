@@ -18,6 +18,8 @@ namespace qLib
 #define qDebug(format, ...)
 #endif
 
+const char *endl = "\r\n";
+
 class QDebug : public QObject
 {
     public :

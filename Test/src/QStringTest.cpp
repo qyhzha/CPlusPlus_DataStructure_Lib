@@ -1,6 +1,6 @@
 #include "QString"
 #include "QException"
-#include <iostream>
+#include "QDebug"
 
 void QStringTest(void)
 {
@@ -10,12 +10,32 @@ void QStringTest(void)
 
         str += " is good.";
 
-        //std::cout << "str : " << str << std::endl;
+        qLib::qDebug() << "str : " << str << qLib::endl;
 
+        if (str.startWith("yonghang"))
+        {
+            qLib::qDebug() << "str has start with yonghang." << qLib::endl;
+        }
+        else
+        {
+            qLib::qDebug() << "str don't have start with yonghang." << qLib::endl;
+        }
+
+        str.replace("good", "bad");
+
+        qLib::qDebug() << "str : " << str << qLib::endl;
+
+        str.remove("yonghang.qin");
+
+        qLib::qDebug() << "str : " << str << qLib::endl;
+
+        str -= "is";
+
+        qLib::qDebug() << "str : " << str << qLib::endl;
 
     }catch(const qLib::QException &e)
     {
-        std::cout << "Location: " << e.location() << std::endl;
-        std::cout << "Message: " << e.message() << std::endl;
+        qLib::qDebug() << "Location: " << e.location() << qLib::endl;
+        qLib::qDebug() << "Message: " << e.message() << qLib::endl;
     }
 }
