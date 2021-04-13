@@ -13,7 +13,7 @@ class QArray : public QContainer<T>
     protected:
         T *m_space;
 
-        void copy(T *dest, T *source, int length)
+        T *copy(T *dest, T *source, int length)
         {
             if (dest != NULL && source != NULL)
             {
@@ -22,6 +22,8 @@ class QArray : public QContainer<T>
                     dest[i] = source[i];
                 }
             }
+
+            return dest;
         }
 
         void update(T *array, int length)
@@ -104,7 +106,7 @@ class QArray : public QContainer<T>
                     return;
                 }
 
-                update(copy(array, this->m_space, this->m_size), length);
+                update(copy(array, this->m_space, (this->m_size < length) ? this->m_size : length), length);
             }
         }
 
