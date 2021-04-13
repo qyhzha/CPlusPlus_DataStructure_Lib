@@ -6,6 +6,8 @@
 namespace qLib
 {
 
+const char *endl = "\r\n";
+
 QDebug::QDebug()
 {
     this->m_handler = NULL;
