@@ -2,18 +2,17 @@
 #define __QDUALLIST_H__
 
 #include "QAbstractList.h"
+#include "QException.h"
+#include <cstdlib>
 
 namespace qLib
 {
 
 template <typename T>
-class QDualLinkList : public QAbstractList<T>
+class QDualList : public QAbstractList<T>
 {
     protected:
-        struct Node : public QAbstractList<T>::Node
-        {
-            Node *pre;
-        };
+        typedef typename QAbstractList<T>::Node Node;
 
     public:
         QDualList()
@@ -30,7 +29,6 @@ class QDualLinkList : public QAbstractList<T>
             }
 
             this->m_header->next = NULL;
-            this->m_header->pre = NULL;
         }
 
         ~QDualList()
@@ -94,13 +92,13 @@ class QDualLinkList : public QAbstractList<T>
 
             if (ret)
             {
-                Node *current = position(i - 1);
+                Node *current = QAbstractList<T>::position(i - 1);
                 Node *toDel = current->next;
                 Node *next = toDel->next;
 
-                if (m_current == toDel)
+                if (this->m_current == toDel)
                 {
-                    m_current = next;
+                    this->m_current = next;
                 }
 
                 current->next = next;
@@ -112,7 +110,7 @@ class QDualLinkList : public QAbstractList<T>
 
                 this->m_size--;
 
-                destroy(toDel);
+                QAbstractList<T>::destroyNode(toDel);
             }
 
             return ret;
@@ -134,16 +132,16 @@ class QDualLinkList : public QAbstractList<T>
         virtual bool pre() const
         {
             int i = 0;
-            while ((i < m_step) && !end())
+            while ((i < this->m_step) && !QAbstractList<T>::end())
             {
-                this->m_current = m_current->pre;
+                this->m_current = this->m_current->pre;
                 i++;
             }
 
-            return (i == m_step);
+            return (i == this->m_step);
         }
 };
 
 }
 
-#endif // DUALLINKLIST_H
+#endif

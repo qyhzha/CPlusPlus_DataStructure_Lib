@@ -14,6 +14,7 @@ class QAbstractList : public QContainer<T>
         {
             T value;
             Node *next;
+            Node *pre;
         };
 
         Node *m_header;
