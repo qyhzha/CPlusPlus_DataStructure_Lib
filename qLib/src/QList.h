@@ -43,6 +43,10 @@ class QList : public QAbstractList<T>
         {
             delete node;
         }
+
+        QList(const QList<T> &obj);
+
+        QList &operator==(const QList<T> &obj);
     public:
         QList()
         {
