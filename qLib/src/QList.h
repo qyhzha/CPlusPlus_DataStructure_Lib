@@ -16,13 +16,32 @@ class QList : public QAbstractList<T>
         typedef typename QAbstractList<T>::Node Node;
 
     public:
+        QList()
+        {
+            this->m_header = reinterpret_cast<Node *>(malloc(sizeof(Node)));
+            if (this->m_header == NULL)
+            {
+                THROW_EXCEPTION(QNoEnoughMemoryException, "No memory to create QList Note object.");
+                return;
+            }
+            this->m_header->next = NULL;
+        }
+
+        ~QList()
+        {
+            if (this->m_header)
+            {
+                free(this->m_header);
+            }
+        }
+
         bool insert(int i, const T &e)
         {
             bool ret = ((i >= 0) && (i <= this->m_size));
 
             if (ret)
             {
-                Node *node = QAbstractList<T>::createNode()();
+                Node *node = QAbstractList<T>::createNode();
 
                 if (node == NULL)
                 {
