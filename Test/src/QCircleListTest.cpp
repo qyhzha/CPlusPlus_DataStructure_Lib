@@ -38,10 +38,12 @@ void QCircleListTest()
             list.remove();
         }
 
+#if 0
         for(int i = 0; i < 15; i++)
         {
             qLib::qDebug() << "value = " << list.get(i).value();
         }
+#endif
 
         for(int i = 0; i < 5; i++)
         {
