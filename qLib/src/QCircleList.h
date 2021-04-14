@@ -1,20 +1,20 @@
 #ifndef __CIRCLELIST_H__
 #define __CIRCLELIST_H__
 
-#include "QLinkList.h"
+#include "QList.h"
 
 namespace qLib
 {
 
 template <typename T>
-class QCircleList : public QLinkList<T>
+class QCircleList : public QList<T>
 {
 protected:
-    typedef typename QLinkList<T>::Node Node;
+    typedef typename QList<T>::Node Node;
 
     Node* last() const
     {
-        return this->position(this->m_length - 1);
+        return this->position(this->m_size - 1);
     }
 
     void last_to_first() const
@@ -24,24 +24,24 @@ protected:
 
     int mod(int i) const
     {
-        return (this->m_length == 0) ? 0 : (i % this->m_length);
+        return (this->m_size == 0) ? 0 : (i % this->m_size);
     }
 
 public:
     bool insert(const T& obj)
     {
-        return insert(this->m_length, obj);
+        return insert(this->m_size, obj);
     }
 
     bool insert(int i, const T& obj)
     {
         bool ret = true;
 
-        i = i % (this->m_length + 1);
+        i = i % (this->m_size + 1);
 
-        ret = QLinkList<T>::insert(i, obj);
+        ret = QList<T>::insert(i, obj);
 
-        if(ret && ((i == 0) || (i == this->m_length)))
+        if(ret && ((i == 0) || (i == this->m_size)))
         {
             last_to_first();
         }
@@ -62,9 +62,9 @@ public:
             if(toDel != NULL)
             {
                 this->m_header->next = toDel->next;
-                this->m_length--;
+                this->m_size--;
 
-                if(this->m_length > 0)
+                if(this->m_size > 0)
                 {
                     last_to_first();
 
@@ -87,7 +87,7 @@ public:
         }
         else
         {
-            ret = QLinkList<T>::remove(i);
+            ret = QList<T>::remove(i);
         }
 
         return ret;
@@ -95,17 +95,17 @@ public:
 
     bool set(int i, const T& obj)
     {
-        return QLinkList<T>::set(mod(i), obj);
+        return QList<T>::set(mod(i), obj);
     }
 
     bool get(int i, T& obj) const
     {
-        return QLinkList<T>::get(mod(i), obj);
+        return QList<T>::get(mod(i), obj);
     }
 
     T get(int i) const
     {
-        return QLinkList<T>::get(mod(i));
+        return QList<T>::get(mod(i));
     }
 
     int find(const T& obj) const
@@ -113,7 +113,7 @@ public:
         int ret = -1;
         Node* node = this->m_header->next;
 
-        for(int i = 0; i < this->m_length; i++)
+        for(int i = 0; i < this->m_size; i++)
         {
             if(node->value == obj)
             {
@@ -129,17 +129,17 @@ public:
 
     void clear()
     {
-        while(this->m_length > 1)
+        while(this->m_size > 1)
         {
             remove(1);
         }
 
-        if(this->m_length == 1)
+        if(this->m_size == 1)
         {
             Node* toDel = this->m_header->next;
 
             this->m_header->next = NULL;
-            this->m_length = 0;
+            this->m_size = 0;
             this->m_current = NULL;
 
             this->destroy(toDel);
@@ -148,12 +148,12 @@ public:
 
     bool move(int i, int step = 1)
     {
-        return QLinkList<T>::move(mod(i), step);
+        return QList<T>::move(mod(i), step);
     }
 
     bool end()
     {
-        return (this->m_length == 0) || (this->m_current == NULL);
+        return (this->m_size == 0) || (this->m_current == NULL);
     }
 
     ~QCircleList()

@@ -16,15 +16,9 @@ public:
 
     bool operator ==(const QTest &obj) const;
 
-    inline void setValue(int value)
-    {
-        m_value = value;
-    }
+    void setValue(int value);
 
-    inline int value()
-    {
-        return m_value;
-    }
+    int value() const;
 };
 
 #endif

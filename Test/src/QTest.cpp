@@ -32,3 +32,13 @@ bool QTest::operator ==(const QTest &obj) const
 {
     return (this->m_value == obj.m_value);
 }
+
+void QTest::setValue(int value)
+{
+    this->m_value = value;
+}
+
+int QTest::value() const
+{
+    return this->m_value;
+}
