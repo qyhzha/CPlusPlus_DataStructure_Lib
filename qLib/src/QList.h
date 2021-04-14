@@ -27,7 +27,7 @@ class QList : public QAbstractList<T>
 
         void destroyNode(Node *node)
         {
-            return QAbstractList<T>::destroyNode();;
+            QAbstractList<T>::destroyNode();;
         }
 
     public:
