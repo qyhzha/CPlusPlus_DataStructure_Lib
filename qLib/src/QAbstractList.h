@@ -46,6 +46,32 @@ class QAbstractList : public QContainer<T>
         QAbstractList &operator==(const QAbstractList<T> &obj);
 
     public:
+        QAbstractList()
+        {
+            this->m_header = reinterpret_cast<Node *>(malloc(sizeof(Node)));
+            this->m_current = NULL;
+            this->m_size = 0;
+            this->m_step = 1;
+
+            if (this->m_header == NULL)
+            {
+                THROW_EXCEPTION(QNoEnoughMemoryException, "No memory to create QList Note object.");
+                return;
+            }
+
+            this->m_header->next = NULL;
+        }
+
+        ~QAbstractList()
+        {
+            clear();
+
+            if (this->m_header)
+            {
+                free(this->m_header);
+            }
+        }
+
         virtual bool insert(int i, const T &e) = 0;
         virtual bool remove(int i) = 0;
         virtual bool insert(const T &e) = 0;

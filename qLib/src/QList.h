@@ -15,51 +15,14 @@ class QList : public QAbstractList<T>
     protected:
         typedef typename QAbstractList<T>::Node Node;
 
-        Node *position(int i) const
-        {
-            return QAbstractList<T>::position(i);
-        }
-
-        Node *createNode()
-        {
-            return QAbstractList<T>::createNode();
-        }
-
-        void destroyNode(Node *node)
-        {
-            QAbstractList<T>::destroyNode();;
-        }
-
     public:
-        QList()
-        {
-            this->m_header = reinterpret_cast<Node *>(malloc(sizeof(Node)));
-            this->m_current = NULL;
-            this->m_size = 0;
-            this->m_step = 1;
-
-            if (this->m_header == NULL)
-            {
-                THROW_EXCEPTION(QNoEnoughMemoryException, "No memory to create QList Note object.");
-                return;
-            }
-
-            this->m_header->next = NULL;
-        }
-
-        ~QList()
-        {
-            QAbstractList<T>::clear();
-            free(this->m_header);
-        }
-
         bool insert(int i, const T &e)
         {
             bool ret = ((i >= 0) && (i <= this->m_size));
 
             if (ret)
             {
-                Node *node = createNode();
+                Node *node = QAbstractList<T>::createNode()();
 
                 if (node == NULL)
                 {
@@ -67,7 +30,7 @@ class QList : public QAbstractList<T>
                     return false;
                 }
 
-                Node *current = position(i - 1);
+                Node *current = QAbstractList<T>::position(i - 1);
 
                 node->value = e;
                 node->next = current->next;
@@ -90,7 +53,7 @@ class QList : public QAbstractList<T>
 
             if (ret)
             {
-                Node *current = position(i - 1);
+                Node *current = QAbstractList<T>::position(i - 1);
                 Node *toDel = current->next;
 
                 if (this->m_current == toDel)
@@ -101,7 +64,7 @@ class QList : public QAbstractList<T>
                 current->next = toDel->next;
                 this->m_size--;
 
-                destroyNode(toDel);
+                QAbstractList<T>::destroyNode(toDel);
             }
 
             return ret;
@@ -118,7 +81,7 @@ class QList : public QAbstractList<T>
 
             if (ret)
             {
-                position(i)->value = e;
+                QAbstractList<T>::position(i)->value = e;
             }
 
             return ret;
@@ -130,7 +93,7 @@ class QList : public QAbstractList<T>
 
             if (ret)
             {
-                e = position(i)->value;
+                e = QAbstractList<T>::position(i)->value;
             }
 
             return ret;

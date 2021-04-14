@@ -15,21 +15,6 @@ class QDualLinkList : public QAbstractList<T>
             Node *pre;
         };
 
-        Node *position(int i) const
-        {
-            return QAbstractList<T>::position(i);
-        }
-
-        Node *createNode()
-        {
-            return QAbstractList<T>::createNode();
-        }
-
-        void destroyNode(Node *node)
-        {
-            QAbstractList<T>::destroyNode();;
-        }
-
     public:
         QDualList()
         {
