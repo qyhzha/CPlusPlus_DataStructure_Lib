@@ -52,16 +52,8 @@ class QAbstractList : public QContainer<T>
         virtual bool insert(int i, const T &e) = 0;
         virtual bool remove(int i) = 0;
         virtual void clear() = 0;
-
-        inline bool insert(const T &e)
-        {
-            return insert(this->m_size, e);
-        }
-
-        inline bool remove()
-        {
-            return remove(this->m_size - 1);
-        }
+        virtual bool insert(const T &e) = 0;
+        virtual bool remove() = 0;
 
         bool set(int i, const T &e)
         {
@@ -121,7 +113,7 @@ class QAbstractList : public QContainer<T>
         {
             if (end())
             {
-                THROW_EXCEPTION(QInvalidOperationException, "No value at current position...");
+                THROW_EXCEPTION(QInvalidOperationException, "No value at current position.");
                 T ret;
                 return ret;
             }

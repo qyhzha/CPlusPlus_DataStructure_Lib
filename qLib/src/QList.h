@@ -66,6 +66,11 @@ class QList : public QAbstractList<T>
             return ret;
         }
 
+        bool insert(const T &obj)
+        {
+            return insert(this->m_size, obj);
+        }
+
         bool remove(int i)
         {
             bool ret = ((i >= 0) && (i < this->m_size));
@@ -87,6 +92,11 @@ class QList : public QAbstractList<T>
             }
 
             return ret;
+        }
+
+        bool remove()
+        {
+            return remove(this->m_size - 1);
         }
 
         void clear()

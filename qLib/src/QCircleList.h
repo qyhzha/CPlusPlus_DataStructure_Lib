@@ -28,6 +28,9 @@ protected:
     }
 
 public:
+    QCircleList() {}
+    ~QCircleList() { clear(); }
+
     bool insert(int i, const T& obj)
     {
         bool ret = true;
@@ -42,6 +45,11 @@ public:
         }
 
         return ret;
+    }
+
+    bool insert(const T &obj)
+    {
+        return insert(this->m_size, obj);
     }
 
     bool remove(int i)
@@ -63,6 +71,21 @@ public:
         }
 
         return ret;
+    }
+
+    bool remove()
+    {
+        return remove(this->m_size - 1);
+    }
+
+    void clear()
+    {
+        while(this->m_size > 1)
+        {
+            remove(1);
+        }
+
+        remove(0);
     }
 
     bool set(int i, const T& obj)
