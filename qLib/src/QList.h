@@ -8,45 +8,27 @@
 
 namespace qLib
 {
+
 template <typename T>
 class QList : public QAbstractList<T>
 {
     protected:
-        struct Node : public QObject
-        {
-            T value;
-            Node *next;
-        };
-
-        Node *m_header;
-        Node *m_current;
-        int m_step;
+        typedef typename QAbstractList<T>::Node Node;
 
         Node *position(int i) const
         {
-            Node *ret = m_header;
-
-            for (int p = -1; p < i; p++)
-            {
-                ret = ret->next;
-            }
-
-            return ret;
+            return QAbstractList<T>::position(i);
         }
 
-        virtual Node *createNode()
+        Node *createNode()
         {
-            return new Node();
+            return QAbstractList<T>::createNode();
         }
 
-        virtual void destroyNode(Node *node)
+        void destroyNode(Node *node)
         {
-            delete node;
+            return QAbstractList<T>::destroyNode();;
         }
-
-        QList(const QList<T> &obj);
-
-        QList &operator==(const QList<T> &obj);
 
     public:
         QList()

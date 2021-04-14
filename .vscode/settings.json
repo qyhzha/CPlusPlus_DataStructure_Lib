@@ -24,7 +24,9 @@
         "qexception": "cpp",
         "system_error": "cpp",
         "stdexcept": "cpp",
-        "string": "c"
+        "string": "c",
+        "qlist.h": "c",
+        "qabstractlist.h": "c"
     },
     "restructuredtext.confPath": ""
 }

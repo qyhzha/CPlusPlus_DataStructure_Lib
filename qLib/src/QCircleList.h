@@ -1,5 +1,5 @@
-#ifndef __CIRCLELIST_H__
-#define __CIRCLELIST_H__
+#ifndef __QCIRCLELIST_H__
+#define __QCIRCLELIST_H__
 
 #include "QList.h"
 
