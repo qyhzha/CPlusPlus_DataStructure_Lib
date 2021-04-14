@@ -10,6 +10,24 @@ QObject::QObject()
     m_objectName = strdup("object");
 }
 
+QObject::QObject(const QObject &obj)
+{
+    m_objectName = strdup(obj.m_objectName);
+}
+
+QObject &QObject::operator==(const QObject &obj)
+{
+    if (this != &obj)
+    {
+        if (m_objectName != NULL)
+        {
+            free(m_objectName);
+        }
+
+        m_objectName = strdup(obj.m_objectName);
+    }
+}
+
 void *QObject::operator new (size_t size) throw()
 {
     return malloc(size);
