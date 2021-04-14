@@ -15,7 +15,7 @@ QObject::QObject(const QObject &obj)
     m_objectName = strdup(obj.m_objectName);
 }
 
-QObject &QObject::operator==(const QObject &obj)
+QObject &QObject::operator=(const QObject &obj)
 {
     if (this != &obj)
     {

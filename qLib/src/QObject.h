@@ -13,7 +13,7 @@ class QObject
     public:
         QObject();
         QObject(const QObject &obj);
-        QObject &operator==(const QObject &obj);
+        QObject &operator=(const QObject &obj);
 
         void *operator new (size_t size) throw();
         void operator delete (void *p);
