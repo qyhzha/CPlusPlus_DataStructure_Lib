@@ -48,41 +48,44 @@ class QDualLinkList : public QAbstractList<T>
 
             if (ret)
             {
-                Node *node = create();
+                Node *node = QAbstractList<T>::createNode();
 
-                if (node != NULL)
+                if (node == NULL)
                 {
-                    Node *current = position(i - 1);
-                    Node *next = current->next;
+                    THROW_EXCEPTION(QNoEnoughMemoryException, "No enough memory to insert new node...");
+                    return false;
+                }
 
-                    node->value = e;
-                    node->next = next;
-                    current->next = node;
+                Node *current = QAbstractList<T>::position(i - 1);
+                Node *next = current->next;
 
-                    if (i == 0)
-                    {
-                        node->pre = NULL;
-                    }
-                    else
-                    {
-                        node->pre = current;
-                    }
+                node->value = e;
+                node->next = next;
+                current->next = node;
 
-                    if (next != NULL)
-                    {
-                        next->pre = node;
-                    }
-
-                    this->m_size++;
+                if (i == 0)
+                {
+                    node->pre = NULL;
                 }
                 else
                 {
-                    THROW_EXCEPTION(QNoEnoughMemoryException,
-                                    "No enough memory to insert new node...");
+                    node->pre = current;
                 }
+
+                if (next != NULL)
+                {
+                    next->pre = node;
+                }
+
+                this->m_size++;
             }
 
             return ret;
+        }
+
+        bool insert(const T &obj)
+        {
+            return insert(this->m_size, obj);
         }
 
         bool remove(int i)
@@ -115,41 +118,17 @@ class QDualLinkList : public QAbstractList<T>
             return ret;
         }
 
+        bool remove()
+        {
+            return remove(this->m_size - 1);
+        }
+
         void clear()
         {
             while(this->m_size > 0)
             {
                 remove(0);
             }
-        }
-
-        bool set(int i, const T &e)
-        {
-            bool ret = ((i >= 0) && (i < this->m_size));
-
-            if (ret)
-            {
-                position(i)->value = e;
-            }
-
-            return ret;
-        }
-
-        bool get(int i, T &e) const
-        {
-            bool ret = ((i >= 0) && (i < this->m_size));
-
-            if (ret)
-            {
-                e = const_cast<QDualLinkList<T>&>(*this).position(i)->value;
-            }
-
-            return ret;
-        }
-
-        T get(int i) const
-        {
-            return const_cast<QDualLinkList<T>&>(*this)[i];
         }
 
         virtual bool pre() const
