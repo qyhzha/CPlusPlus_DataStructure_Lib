@@ -31,32 +31,37 @@ class QDualLinkList : public QAbstractList<T>
         }
 
     public:
-        QDualLinkList()
+        QDualList()
         {
-            m_header.next = NULL;
-            m_length = 0;
-            m_step = 1;
-            m_current = NULL;
-        }
+            this->m_header = reinterpret_cast<Node *>(malloc(sizeof(Node)));
+            this->m_current = NULL;
+            this->m_size = 0;
+            this->m_step = 1;
 
-        virtual T &operator [](int i)
-        {
-            if ((i < 0) || (i >= m_length))
+            if (this->m_header == NULL)
             {
-                THROW_EXCEPTION(QIndexOutOfBoundsException, "Index i out of bounds...");
+                THROW_EXCEPTION(QNoEnoughMemoryException, "No memory to create QList Note object.");
+                return;
             }
 
-            return position(i)->value;
+            this->m_header->next = NULL;
+            this->m_header->pre = NULL;
+        }
+
+        ~QDualList()
+        {
+            clear();
+            free(this->m_header);
         }
 
         bool insert(const T &obj)
         {
-            return insert(m_length, obj);
+            return insert(this->m_size, obj);
         }
 
         bool insert(int i, const T &e)
         {
-            bool ret = ((i >= 0) && (i <= m_length));
+            bool ret = ((i >= 0) && (i <= this->m_size));
 
             if (ret)
             {
@@ -85,7 +90,7 @@ class QDualLinkList : public QAbstractList<T>
                         next->pre = node;
                     }
 
-                    m_length++;
+                    this->m_size++;
                 }
                 else
                 {
@@ -99,7 +104,7 @@ class QDualLinkList : public QAbstractList<T>
 
         bool remove(int i)
         {
-            bool ret = ((i >= 0) && (i < m_length));
+            bool ret = ((i >= 0) && (i < this->m_size));
 
             if (ret)
             {
@@ -119,7 +124,7 @@ class QDualLinkList : public QAbstractList<T>
                     next->pre = toDel->pre;
                 }
 
-                m_length--;
+                this->m_size--;
 
                 destroy(toDel);
             }
@@ -129,7 +134,7 @@ class QDualLinkList : public QAbstractList<T>
 
         bool set(int i, const T &e)
         {
-            bool ret = ((i >= 0) && (i < m_length));
+            bool ret = ((i >= 0) && (i < this->m_size));
 
             if (ret)
             {
@@ -141,7 +146,7 @@ class QDualLinkList : public QAbstractList<T>
 
         bool get(int i, T &e) const
         {
-            bool ret = ((i >= 0) && (i < m_length));
+            bool ret = ((i >= 0) && (i < this->m_size));
 
             if (ret)
             {
@@ -151,62 +156,9 @@ class QDualLinkList : public QAbstractList<T>
             return ret;
         }
 
-        virtual T get(int i) const
+        T get(int i) const
         {
             return const_cast<QDualLinkList<T>&>(*this)[i];
-        }
-
-        int length() const
-        {
-            return m_length;
-        }
-
-        void clear()
-        {
-            while (m_length > 0)
-            {
-                remove(0);
-            }
-        }
-
-        virtual bool move(int i, int step = 1) const
-        {
-            bool ret = (i >= 0) && (i < m_length) && (step > 0);
-
-            if (ret)
-            {
-                const_cast<QDualLinkList<T> &>(*this).m_current = position(i);
-                const_cast<QDualLinkList<T> &>(*this).m_step = step;
-            }
-
-            return ret;
-        }
-
-        virtual bool end() const
-        {
-            return (m_current == NULL);
-        }
-
-        virtual T current() const
-        {
-            if (end())
-            {
-                THROW_EXCEPTION(QInvalidOperationException, "No value at current position...");
-            }
-
-            return m_current->value;
-        }
-
-        virtual bool next() const
-        {
-            int i = 0;
-            while ((i < m_step) && !end())
-            {
-                const_cast<QDualLinkList<T> &>(*this).m_current = m_current->next;
-                i++;
-            }
-
-            return (i == m_step);
         }
 
         virtual bool pre() const
@@ -214,40 +166,11 @@ class QDualLinkList : public QAbstractList<T>
             int i = 0;
             while ((i < m_step) && !end())
             {
-                const_cast<QDualLinkList<T> &>(*this).m_current = m_current->pre;
+                this->m_current = m_current->pre;
                 i++;
             }
 
             return (i == m_step);
-        }
-
-        virtual int find(const T &obj) const
-        {
-            int ret = -1;
-            int i = 0;
-
-            Node *node = m_header.next;
-
-            while (node != NULL)
-            {
-                if (node->value == obj)
-                {
-                    ret = i;
-                    break;
-                }
-                else
-                {
-                    i++;
-                    node = node->next;
-                }
-            }
-
-            return ret;
-        }
-
-        ~QDualLinkList()
-        {
-            clear();
         }
 };
 

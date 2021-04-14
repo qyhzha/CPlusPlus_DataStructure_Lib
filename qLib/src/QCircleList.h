@@ -90,11 +90,6 @@ public:
         return QList<T>::get(mod(i));
     }
 
-    int find(const T& obj) const
-    {
-        return QList<T>::find(obj);
-    }
-
     void clear()
     {
         while(this->m_size > 1)
@@ -117,11 +112,6 @@ public:
     bool move(int i, int step = 1)
     {
         return QList<T>::move(mod(i), step);
-    }
-
-    bool end()
-    {
-        return (this->m_size == 0) || (this->m_current == NULL);
     }
 };
 

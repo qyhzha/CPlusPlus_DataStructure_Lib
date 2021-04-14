@@ -136,82 +136,13 @@ class QList : public QAbstractList<T>
             return ret;
         }
 
-        virtual T get(int i) const
+        T get(int i) const
         {
             T ret;
 
             if (get(i, ret) != true)
             {
                 THROW_EXCEPTION(QInvalidParameterException, "Paramter is invalid.");
-            }
-
-            return ret;
-        }
-
-        void clear()
-        {
-            while (this->m_size > 0)
-            {
-                remove(0);
-            }
-        }
-
-        virtual bool move(int i, int step = 1) const
-        {
-            bool ret = (i >= 0) && (i < this->m_size) && (step > 0);
-
-            if (ret)
-            {
-                const_cast<QList<T>&>(*this).m_current = position(i);
-                const_cast<QList<T>&>(*this).m_step = step;
-            }
-
-            return ret;
-        }
-
-        virtual bool end() const
-        {
-            return (this->m_current == NULL);
-        }
-
-        virtual T current() const
-        {
-            if (end())
-            {
-                THROW_EXCEPTION(QInvalidOperationException, "No value at current position...");
-                T ret;
-                return ret;
-            }
-
-            return m_current->value;
-        }
-
-        virtual bool next() const
-        {
-            int i = 0;
-            while ((i < m_step) && !end())
-            {
-                const_cast<QList<T>&>(*this).m_current = m_current->next;
-                i++;
-            }
-
-            return (i == m_step);
-        }
-
-        virtual int find(const T &obj) const
-        {
-            int ret = -1;
-            Node *node = this->m_header->next;
-
-            for(int i = 0; (i < this->m_size) && node; i++)
-            {
-                if (node->value == obj)
-                {
-                    ret = i;
-                    break;
-                }
-
-                node = node->next;
             }
 
             return ret;
