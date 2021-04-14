@@ -1,10 +1,10 @@
 #include <iostream>
 
-extern void QDualListTest(void);
+extern void QDualCircleListTest(void);
 
 int main()
 {
-    QDualListTest();
+    QDualCircleListTest();
 
     return 0;
 }

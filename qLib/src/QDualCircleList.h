@@ -1,255 +1,197 @@
-#ifndef __DUALCIRCLELIST_H__
-#define __DUALCIRCLELIST_H__
+#ifndef __QDUALCIRCLELIST_H__
+#define __QDUALCIRCLELIST_H__
 
-#include "QDualLinkList.h"
+#include "QDualList.h"
+#include "QException.h"
 
-namespace qLib 
+namespace qLib
 {
 
 template <typename T>
-class DualCircleList : public QDualLinkList<T>
+class QDualCircleList : public QDualList<T>
 {
-protected:
-    typedef typename QDualLinkList<T>::Node Node;
+    protected:
+        typedef typename QDualList<T>::Node Node;
 
-    int mod(int i) const
-    {
-        return (this->m_length == 0) ? 0 : (i % this->m_length);
-    }
-
-    Node* position_tail(int i) const
-    {
-        Node* ret = reinterpret_cast<Node*>(&(this->m_header));
-
-        if(ret)
+        int mod(int i) const
         {
-            for(int p = -1; p < i; p++)
+            return (this->m_size == 0) ? 0 : (i % this->m_size);
+        }
+
+    public:
+        QDualCircleList()
+        {
+            this->m_header->pre = this->m_header;
+            this->m_header->next = this->m_header;
+        }
+
+        ~QDualCircleList()
+        {
+            clear();
+        }
+
+        bool insert(int i, const T &obj, bool isHeader)
+        {
+            bool ret = true;
+
+            i = i % (this->m_size + 1);
+
+            ret = QDualList<T>::insert(i, obj, isHeader);
+
+            if (ret)
             {
-                ret = ret->pre;
-            }
-        }
+                if (i == 0)
+                {
+                    this->m_header->next->pre = this->m_header;
+                }
 
-        return ret;
-    }
-
-public:
-    DualCircleList()
-    {
-        this->m_header.pre = reinterpret_cast<Node*>(&this->m_header);
-        this->m_header.next = reinterpret_cast<Node*>(&this->m_header);
-    }
-
-    T& operator [](int i)
-    {
-        i = mod(i);
-
-        if((i < 0) || (i >= this->m_length))
-        {
-            THROW_EXCEPTION(QIndexOutOfBoundsException, "Index i out of bounds...");
-        }
-
-        return DualCircleList<T>::position(i)->value;
-    }
-
-    bool insert(const T& obj)
-    {
-        return insert(this->m_length, obj);
-    }
-
-    bool insert(int i, const T& obj)
-    {
-        bool ret = true;
-        Node* node = QDualLinkList<T>::create();
-
-        i = i % (this->m_length + 1);
-
-        if(node != NULL)
-        {
-            Node* pre = this->position(i - 1);
-            Node* next = pre->next;
-
-            node->value = obj;
-            pre->next = node;
-            next->pre = node;
-            node->next = next;
-            node->pre = pre;
-
-            this->m_length++;
-        }
-        else
-        {
-            ret = false;
-        }
-
-        return ret;
-    }
-
-    bool insert_tail(int i, const T& obj)
-    {
-        bool ret = true;
-        Node* node = QDualLinkList<T>::create();
-
-        i = i % (this->m_length + 1);
-
-        if(node != NULL)
-        {
-            Node* pre = this->position_tail(i);
-            Node* next = pre->next;
-
-            node->value = obj;
-            pre->next = node;
-            next->pre = node;
-            node->next = next;
-            node->pre = pre;
-
-            this->m_length++;
-        }
-        else
-        {
-            ret = false;
-        }
-
-        return ret;
-    }
-
-    bool remove(int i)
-    {
-        bool ret = true;
-
-        i = mod(i);
-
-        ret = (i >= 0) && (i < this->m_length);
-
-        if(ret)
-        {
-            Node* pre = this->position(i - 1);
-            Node* toDel = pre->next;
-            Node* next = toDel->next;
-
-            if(this->m_current == toDel)
-            {
-                this->m_current = next;
+                if (i == this->m_size - 1)
+                {
+                    this->m_header->pre->next = this->m_header;
+                }
             }
 
-            if(toDel != NULL)
-            {
-                pre->next = next;
-                next->pre = pre;
-                this->m_length--;
-
-                QDualLinkList<T>::destroy(toDel);
-            }
-            else
-            {
-                ret = false;
-            }
+            return ret;
         }
 
-        return ret;
-    }
-
-    bool set(int i, const T& obj)
-    {
-        return QDualLinkList<T>::set(mod(i), obj);
-    }
-
-    bool get(int i, T& obj) const
-    {
-        return QDualLinkList<T>::get(mod(i), obj);
-    }
-
-    T get(int i) const
-    {
-        return QDualLinkList<T>::get(mod(i));
-    }
-
-    void clear()
-    {
-        while(this->m_length > 0)
+        bool insert(const T &obj, bool isHeader)
         {
+            return insert(this->m_size, obj, isHeader);
+        }
+
+
+        bool insert(int i, const T &obj)
+        {
+            return insert(i, obj, true);
+        }
+
+        bool insert(const T &obj)
+        {
+            return insert(obj, true);
+        }
+
+        bool insertTail(int i, const T &obj)
+        {
+            return insert(i, obj, false);
+        }
+
+        bool insertTail(const T &obj)
+        {
+            return insert(obj, false);
+        }
+
+        bool remove(int i, bool isHeader)
+        {
+            bool ret = true;
+
+            i = mod(i);
+
+            ret = QDualList<T>::remove(i, isHeader);
+
+            if (ret)
+            {
+                if (i == 0)
+                {
+                    this->m_header->next->pre = this->m_header;
+                }
+
+                if (i == this->m_size - 1)
+                {
+                    this->m_header->pre->next = this->m_header;
+                }
+            }
+
+            return ret;
+        }
+
+        bool remove(bool isHeader)
+        {
+            return remove(this->m_size - 1, isHeader);
+        }
+
+        bool remove(int i)
+        {
+            return remove(i, true);
+        }
+
+        bool remove()
+        {
+            return remove(true);
+        }
+
+        bool removeTail(int i)
+        {
+            return remove(i, false);
+        }
+
+        bool removeTail()
+        {
+            return remove(false);
+        }
+
+        bool set(int i, const T &obj)
+        {
+            return QDualList<T>::set(mod(i), obj);
+        }
+
+        bool get(int i, T &obj) const
+        {
+            return QDualList<T>::get(mod(i), obj);
+        }
+
+        T get(int i) const
+        {
+            return QDualList<T>::get(mod(i));
+        }
+
+        void clear()
+        {
+            while (this->m_size > 1)
+            {
+                remove(1);
+            }
+
             remove(0);
         }
 
-        this->m_current = NULL;
-    }
-
-    bool move(int i, int step = 1) const
-    {
-        return QDualLinkList<T>::move(mod(i), step);
-    }
-
-    bool end() const
-    {
-        return (this->m_length == 0) || (this->m_current == NULL);
-    }
-
-    bool next() const
-    {
-        int i = 0;
-        while((i < this->m_step) && !end())
+        bool move(int i, int step = 1) const
         {
-            const_cast<DualCircleList<T>&>(*this).m_current = this->m_current->next;
+            return QDualList<T>::move(mod(i), step);
+        }
 
-            if(this->m_current != reinterpret_cast<Node*>(&this->m_header))
+        bool next() const
+        {
+            int i = 0;
+            while ((i < this->m_step) && !QDualList<T>::end())
             {
-                i++;
-            }
-        }
+                this->m_current = this->m_current->next;
 
-        if(this->m_current == reinterpret_cast<Node*>(&this->m_header))
-        {
-            const_cast<DualCircleList<T>&>(*this).m_current = this->m_current->next;
-        }
-
-        return (i == this->m_step);
-    }
-
-    bool pre() const
-    {
-        int i = 0;
-        while((i < this->m_step) && !end())
-        {
-            const_cast<DualCircleList<T>&>(*this).m_current = this->m_current->pre;
-
-            if(this->m_current != reinterpret_cast<Node*>(&this->m_header))
-            {
-                i++;
-            }
-        }
-
-        if(this->m_current == reinterpret_cast<Node*>(&this->m_header))
-        {
-            const_cast<DualCircleList<T>&>(*this).m_current = this->m_current->pre;
-        }
-
-        return (i == this->m_step);
-    }
-
-    int find(const T& obj) const
-    {
-        int ret = -1;
-        Node* node = this->m_header.next;
-
-        for(int i = 0; i < this->m_length; i++)
-        {
-            if(node->value == obj)
-            {
-                ret = i;
-                break;
+                if (this->m_current != this->m_header)
+                {
+                    i++;
+                }
             }
 
-            node = node->next;
+            return (i == this->m_step);
         }
 
-        return ret;
-    }
+        bool pre() const
+        {
+            int i = 0;
+            while ((i < this->m_step) && !QDualList<T>::end())
+            {
+                this->m_current = this->m_current->pre;
 
-    ~DualCircleList()
-    {
-        clear();
-    }
+                if (this->m_current != this->m_header)
+                {
+                    i++;
+                }
+            }
+
+            return (i == this->m_step);
+        }
 };
 
 }
 
-#endif // DUALCIRCLELIST_H
+#endif

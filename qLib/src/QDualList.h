@@ -14,6 +14,18 @@ class QDualList : public QAbstractList<T>
     protected:
         typedef typename QAbstractList<T>::Node Node;
 
+        Node* positionTail(int i) const
+        {
+            Node* ret = this->m_header;
+
+            for(int p = -1; (p < i) && ret; p++)
+            {
+                ret = ret->pre;
+            }
+
+            return ret;
+        }
+
     public:
         QDualList()
         {
@@ -29,6 +41,7 @@ class QDualList : public QAbstractList<T>
             }
 
             this->m_header->next = NULL;
+            this->m_header->pre = NULL;
         }
 
         ~QDualList()
@@ -40,7 +53,7 @@ class QDualList : public QAbstractList<T>
             }
         }
 
-        bool insert(int i, const T &e)
+        virtual bool insert(int i, const T &e, bool isHeader)
         {
             bool ret = ((i >= 0) && (i <= this->m_size));
 
@@ -54,25 +67,26 @@ class QDualList : public QAbstractList<T>
                     return false;
                 }
 
-                Node *current = QAbstractList<T>::position(i - 1);
+                Node *current = isHeader ? QAbstractList<T>::position(i - 1) : positionTail(i - 1);
                 Node *next = current->next;
 
                 node->value = e;
                 node->next = next;
+                node->pre = current;
                 current->next = node;
+                if (next != NULL)
+                {
+                    next->pre = node;
+                }
 
                 if (i == 0)
                 {
                     node->pre = NULL;
                 }
-                else
-                {
-                    node->pre = current;
-                }
 
-                if (next != NULL)
+                if (i == this->m_size)
                 {
-                    next->pre = node;
+                    this->m_header->pre = node;
                 }
 
                 this->m_size++;
@@ -81,18 +95,38 @@ class QDualList : public QAbstractList<T>
             return ret;
         }
 
-        bool insert(const T &obj)
+        virtual bool insert(const T &obj, bool isHeader)
         {
-            return insert(this->m_size, obj);
+            return insert(this->m_size, obj, isHeader);
         }
 
-        bool remove(int i)
+        bool insert(int i, const T &obj)
+        {
+            return insert(i, obj, true);
+        }
+
+        bool insert(const T &obj)
+        {
+            return insert(obj, true);
+        }
+
+        virtual bool insertTail(int i, const T &obj)
+        {
+            return insert(i, obj, false);
+        }
+
+        virtual bool insertTail(const T &obj)
+        {
+            return insert(obj, false);
+        }
+
+        virtual bool remove(int i, bool isHeader)
         {
             bool ret = ((i >= 0) && (i < this->m_size));
 
             if (ret)
             {
-                Node *current = QAbstractList<T>::position(i - 1);
+                Node *current = isHeader ? QAbstractList<T>::position(i - 1) : positionTail(i - 1);
                 Node *toDel = current->next;
                 Node *next = toDel->next;
 
@@ -108,6 +142,11 @@ class QDualList : public QAbstractList<T>
                     next->pre = toDel->pre;
                 }
 
+                if (i == this->m_size - 1)
+                {
+                    this->m_header->pre = toDel->pre;
+                }
+
                 this->m_size--;
 
                 QAbstractList<T>::destroyNode(toDel);
@@ -116,9 +155,29 @@ class QDualList : public QAbstractList<T>
             return ret;
         }
 
-        bool remove()
+        virtual bool remove(bool isHeader)
         {
             return remove(this->m_size - 1);
+        }
+
+        bool remove(int i)
+        {
+            return remove(i, true);
+        }
+
+        bool remove()
+        {
+            return remove(true);
+        }
+
+        virtual bool removeTail(int i)
+        {
+            return remove(i, false);
+        }
+
+        virtual bool removeTail()
+        {
+            return remove(false);
         }
 
         void clear()
