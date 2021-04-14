@@ -219,11 +219,9 @@ class QList : public QAbstractList<T>
         virtual int find(const T &obj) const
         {
             int ret = -1;
-            int i = 0;
+            Node *node = this->m_header->next;
 
-            Node *node = m_header->next;
-
-            while (node != NULL)
+            for(int i = 0; (i < this->m_size) && node; i++)
             {
                 if (node->value == obj)
                 {
@@ -231,7 +229,6 @@ class QList : public QAbstractList<T>
                     break;
                 }
 
-                i++;
                 node = node->next;
             }
 

@@ -41,7 +41,7 @@ public:
 
         ret = QList<T>::insert(i, obj);
 
-        if(ret && ((i == 0) || (i == this->m_size)))
+        if(ret && ((i == 0) || (i == this->m_size - 1)))
         {
             last_to_first();
         }
@@ -55,42 +55,24 @@ public:
 
         i = mod(i);
 
-        if(i == 0)
+        ret = QList<T>::remove(i);
+
+        if(ret && (i == 0))
         {
-            Node* toDel = this->m_header->next;
-
-            if(toDel != NULL)
-            {
-                this->m_header->next = toDel->next;
-                this->m_size--;
-
-                if(this->m_size > 0)
-                {
-                    last_to_first();
-
-                    if(this->m_current == toDel)
-                    {
-                        this->m_current = toDel->next;
-                    }
-                }
-                else
-                {
-                    this->m_current = NULL;
-                }
-
-                this->destroy(toDel);
-            }
-            else
-            {
-                ret = false;
-            }
+            last_to_first();
         }
-        else
+
+        if (ret && (this->m_size == 0))
         {
-            ret = QList<T>::remove(i);
+            this->m_current = NULL;
         }
 
         return ret;
+    }
+
+    bool remove()
+    {
+        return remove(this->m_size - 1);
     }
 
     bool set(int i, const T& obj)
@@ -110,21 +92,7 @@ public:
 
     int find(const T& obj) const
     {
-        int ret = -1;
-        Node* node = this->m_header->next;
-
-        for(int i = 0; i < this->m_size; i++)
-        {
-            if(node->value == obj)
-            {
-                ret = i;
-                break;
-            }
-
-            node = node->next;
-        }
-
-        return ret;
+        return QList<T>::find(obj);
     }
 
     void clear()
@@ -154,12 +122,6 @@ public:
     bool end()
     {
         return (this->m_size == 0) || (this->m_current == NULL);
-    }
-
-    ~QCircleList()
-    {
-        clear();
-        delete this->temp;
     }
 };
 
