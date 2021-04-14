@@ -110,7 +110,7 @@ public:
             this->m_size = 0;
             this->m_current = NULL;
 
-            this->destroy(toDel);
+            this->destroyNode(toDel);
         }
     }
 
