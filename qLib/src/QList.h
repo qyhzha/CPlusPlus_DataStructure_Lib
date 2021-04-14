@@ -18,6 +18,10 @@ class QList : public QAbstractList<T>
     public:
         QList()
         {
+            this->m_current = NULL;
+            this->m_size = 0;
+            this->m_step = 1;
+
             this->m_header = reinterpret_cast<Node *>(malloc(sizeof(Node)));
             if (this->m_header == NULL)
             {
@@ -29,6 +33,7 @@ class QList : public QAbstractList<T>
 
         ~QList()
         {
+            clear();
             if (this->m_header)
             {
                 free(this->m_header);
@@ -92,6 +97,14 @@ class QList : public QAbstractList<T>
         bool remove()
         {
             return remove(this->m_size - 1);
+        }
+
+        void clear()
+        {
+            while(this->m_size > 0)
+            {
+                remove(0);
+            }
         }
 
         bool set(int i, const T &e)

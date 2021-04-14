@@ -46,31 +46,14 @@ class QAbstractList : public QContainer<T>
         QAbstractList &operator==(const QAbstractList<T> &obj);
 
     public:
-        QAbstractList()
-        {
-            this->m_header = NULL;
-            this->m_current = NULL;
-            this->m_size = 0;
-            this->m_step = 1;
-        }
-
-        ~QAbstractList()
-        {
-            clear();
-        }
+        QAbstractList() {}
+        ~QAbstractList() {}
 
         virtual bool insert(int i, const T &e) = 0;
         virtual bool remove(int i) = 0;
         virtual bool insert(const T &e) = 0;
         virtual bool remove() = 0;
-
-        virtual void clear()
-        {
-            while (this->m_size > 0)
-            {
-                remove(0);
-            }
-        }
+        virtual void clear() = 0;
 
         virtual bool move(int i, int step = 1) const
         {
