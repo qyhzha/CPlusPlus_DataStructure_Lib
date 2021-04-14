@@ -36,12 +36,10 @@ class QDualLinkList : public QAbstractList<T>
         ~QDualList()
         {
             clear();
-            free(this->m_header);
-        }
-
-        bool insert(const T &obj)
-        {
-            return insert(this->m_size, obj);
+            if (this->m_header)
+            {
+                free(this->m_header);
+            }
         }
 
         bool insert(int i, const T &e)
@@ -115,6 +113,14 @@ class QDualLinkList : public QAbstractList<T>
             }
 
             return ret;
+        }
+
+        void clear()
+        {
+            while(this->m_size > 0)
+            {
+                remove(0);
+            }
         }
 
         bool set(int i, const T &e)

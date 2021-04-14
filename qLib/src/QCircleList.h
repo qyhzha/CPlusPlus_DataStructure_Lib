@@ -28,11 +28,6 @@ protected:
     }
 
 public:
-    bool insert(const T& obj)
-    {
-        return insert(this->m_size, obj);
-    }
-
     bool insert(int i, const T& obj)
     {
         bool ret = true;
@@ -70,11 +65,6 @@ public:
         return ret;
     }
 
-    bool remove()
-    {
-        return remove(this->m_size - 1);
-    }
-
     bool set(int i, const T& obj)
     {
         return QList<T>::set(mod(i), obj);
@@ -88,25 +78,6 @@ public:
     T get(int i) const
     {
         return QList<T>::get(mod(i));
-    }
-
-    void clear()
-    {
-        while(this->m_size > 1)
-        {
-            remove(1);
-        }
-
-        if(this->m_size == 1)
-        {
-            Node* toDel = this->m_header->next;
-
-            this->m_header->next = NULL;
-            this->m_size = 0;
-            this->m_current = NULL;
-
-            this->destroyNode(toDel);
-        }
     }
 
     bool move(int i, int step = 1)

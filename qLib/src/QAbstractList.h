@@ -51,9 +51,53 @@ class QAbstractList : public QContainer<T>
 
         virtual bool insert(int i, const T &e) = 0;
         virtual bool remove(int i) = 0;
-        virtual bool insert(const T &e) = 0;
-        virtual bool remove() = 0;
         virtual void clear() = 0;
+
+        inline bool insert(const T &e)
+        {
+            return insert(this->m_size, e);
+        }
+
+        inline bool remove()
+        {
+            return remove(this->m_size - 1);
+        }
+
+        bool set(int i, const T &e)
+        {
+            bool ret = ((i >= 0) && (i < this->m_size));
+
+            if (ret)
+            {
+                position(i)->value = e;
+            }
+
+            return ret;
+        }
+
+        bool get(int i, T &e) const
+        {
+            bool ret = ((i >= 0) && (i < this->m_size));
+
+            if (ret)
+            {
+                e = position(i)->value;
+            }
+
+            return ret;
+        }
+
+        T get(int i) const
+        {
+            T ret;
+
+            if (get(i, ret) != true)
+            {
+                THROW_EXCEPTION(QInvalidParameterException, "Paramter is invalid.");
+            }
+
+            return ret;
+        }
 
         virtual bool move(int i, int step = 1) const
         {

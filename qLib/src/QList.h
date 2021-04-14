@@ -66,11 +66,6 @@ class QList : public QAbstractList<T>
             return ret;
         }
 
-        bool insert(const T &obj)
-        {
-            return insert(this->m_size, obj);
-        }
-
         bool remove(int i)
         {
             bool ret = ((i >= 0) && (i < this->m_size));
@@ -94,53 +89,12 @@ class QList : public QAbstractList<T>
             return ret;
         }
 
-        bool remove()
-        {
-            return remove(this->m_size - 1);
-        }
-
         void clear()
         {
             while(this->m_size > 0)
             {
                 remove(0);
             }
-        }
-
-        bool set(int i, const T &e)
-        {
-            bool ret = ((i >= 0) && (i < this->m_size));
-
-            if (ret)
-            {
-                QAbstractList<T>::position(i)->value = e;
-            }
-
-            return ret;
-        }
-
-        bool get(int i, T &e) const
-        {
-            bool ret = ((i >= 0) && (i < this->m_size));
-
-            if (ret)
-            {
-                e = QAbstractList<T>::position(i)->value;
-            }
-
-            return ret;
-        }
-
-        T get(int i) const
-        {
-            T ret;
-
-            if (get(i, ret) != true)
-            {
-                THROW_EXCEPTION(QInvalidParameterException, "Paramter is invalid.");
-            }
-
-            return ret;
         }
 };
 
