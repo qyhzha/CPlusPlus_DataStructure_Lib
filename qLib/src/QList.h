@@ -49,7 +49,7 @@ class QList : public QAbstractList<T>
 
         ~QList()
         {
-            clear();
+            QAbstractList<T>::clear();
             free(this->m_header);
         }
 
