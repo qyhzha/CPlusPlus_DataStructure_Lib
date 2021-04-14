@@ -1,5 +1,5 @@
-#ifndef __QUEUE_H__
-#define __QUEUE_H__
+#ifndef __QQUEUE_H__
+#define __QQUEUE_H__
 
 #include "QObject.h"
 #include "QException.h"
@@ -20,4 +20,4 @@ public:
 
 }
 
-#endif // QUEUE_H
+#endif

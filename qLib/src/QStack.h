@@ -1,5 +1,5 @@
-#ifndef __STACK_H__
-#define __STACK_H__
+#ifndef __QSTACK_H__
+#define __QSTACK_H__
 
 #include "QObject.h"
 #include "QException.h"
@@ -20,4 +20,4 @@ public:
 
 }
 
-#endif // STACK_H
+#endif

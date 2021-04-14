@@ -1,22 +1,22 @@
-#ifndef __GTREE_H__
-#define __GTREE_H__
+#ifndef __QGTREE_H__
+#define __QGTREE_H__
 
 #include "QTree.h"
-#include "LinkQueue.h"
-#include "GTreeNode.h"
+#include "QLinkQueue.h"
+#include "QGTreeNode.h"
 
 namespace qLib
 {
 
 template <typename T>
-class GTree : public QTree<T>
+class QGTree : public QTree<T>
 {
 protected:
-    LinkQueue<GTreeNode<T>*> m_queue;
+    QLinkQueue<QGTreeNode<T>*> m_queue;
 
-    GTreeNode<T>* find(GTreeNode<T>* root, const T& value) const
+    QGTreeNode<T>* find(QGTreeNode<T>* root, const T& value) const
     {
-        GTreeNode<T>* ret = NULL;
+        QGTreeNode<T>* ret = NULL;
 
         if(root != NULL)
         {
@@ -36,9 +36,9 @@ protected:
         return ret;
     }
 
-    GTreeNode<T>* find(GTreeNode<T>* root, GTreeNode<T>* node) const
+    QGTreeNode<T>* find(QGTreeNode<T>* root, QGTreeNode<T>* node) const
     {
-        GTreeNode<T>* ret = NULL;
+        QGTreeNode<T>* ret = NULL;
 
         if((root != NULL) && (node != NULL))
         {
@@ -58,7 +58,7 @@ protected:
         return ret;
     }
 
-    void clear(GTreeNode<T>* node)
+    void clear(QGTreeNode<T>* node)
     {
         if(node != NULL)
         {
@@ -71,9 +71,9 @@ protected:
         }
     }
 
-    void remove(GTreeNode<T>* node, GTree<T>*& ret)
+    void remove(QGTreeNode<T>* node, QGTree<T>*& ret)
     {
-        ret = new GTree<T>();
+        ret = new QGTree<T>();
 
         if(ret)
         {
@@ -83,7 +83,7 @@ protected:
             }
             else
             {
-                QLinkList<GTreeNode<T>*>& child = dynamic_cast<GTreeNode<T>*>(node->parent)->child;
+                QLinkList<QGTreeNode<T>*>& child = dynamic_cast<QGTreeNode<T>*>(node->parent)->child;
 
                 child.remove(child.find(node));
 
@@ -98,7 +98,7 @@ protected:
         }
     }
 
-    int count(GTreeNode<T>* root) const
+    int count(QGTreeNode<T>* root) const
     {
         int ret = 0;
 
@@ -122,7 +122,7 @@ protected:
         return ret;
     }
 
-    int height(GTreeNode<T>* root) const
+    int height(QGTreeNode<T>* root) const
     {
         int ret = 0;
 
@@ -151,7 +151,7 @@ protected:
         return ret;
     }
 
-    int degree(GTreeNode<T>* root) const
+    int degree(QGTreeNode<T>* root) const
     {
         int ret = 0;
 
@@ -183,7 +183,7 @@ protected:
     }
 
 public:
-    GTree()
+    QGTree()
     {
 
     }
@@ -192,7 +192,7 @@ public:
     {
         bool ret = true;
 
-        GTreeNode<T>* gnode = dynamic_cast<GTreeNode<T>*>(node);
+        QGTreeNode<T>* gnode = dynamic_cast<QGTreeNode<T>*>(node);
 
         if(gnode != NULL)
         {
@@ -203,7 +203,7 @@ public:
             }
             else if((this->m_root != NULL) && (gnode->parent != NULL))
             {
-                GTreeNode<T>* parent = find(gnode->parent);
+                QGTreeNode<T>* parent = find(gnode->parent);
 
                 if(parent)
                 {
@@ -241,7 +241,7 @@ public:
     {
         bool ret = true;
 
-        GTreeNode<T>* node = GTreeNode<T>::NewNode();
+        QGTreeNode<T>* node = QGTreeNode<T>::NewNode();
 
         if(node)
         {
@@ -261,8 +261,8 @@ public:
 
     QSharedPointer<QTree<T>> remove(const T& value)
     {
-        GTree<T>* ret = NULL;
-        GTreeNode<T>* node = find(value);
+        QGTree<T>* ret = NULL;
+        QGTreeNode<T>* node = find(value);
 
         if(node)
         {
@@ -279,12 +279,12 @@ public:
 
     QSharedPointer<QTree<T>> remove(QTreeNode<T>* node)
     {
-        GTree<T>* ret = NULL;
+        QGTree<T>* ret = NULL;
         node = find(node);
 
         if(node)
         {
-            remove(dynamic_cast<GTreeNode<T>*>(node), ret);
+            remove(dynamic_cast<QGTreeNode<T>*>(node), ret);
             m_queue.clear();
         }
         else
@@ -295,19 +295,19 @@ public:
         return ret;
     }
 
-    GTreeNode<T>* find(const T& value) const
+    QGTreeNode<T>* find(const T& value) const
     {
         return find(root(), value);
     }
 
-    GTreeNode<T>* find(QTreeNode<T>* node) const
+    QGTreeNode<T>* find(QTreeNode<T>* node) const
     {
-        return find(root(), dynamic_cast<GTreeNode<T>*>(node));
+        return find(root(), dynamic_cast<QGTreeNode<T>*>(node));
     }
 
-    GTreeNode<T>* root() const
+    QGTreeNode<T>* root() const
     {
-        return dynamic_cast<GTreeNode<T>*>(this->m_root);
+        return dynamic_cast<QGTreeNode<T>*>(this->m_root);
     }
 
     int degree() const
@@ -338,8 +338,8 @@ public:
     {
         if(root())
         {
-            const_cast<LinkQueue<GTreeNode<T>*>&>(m_queue).clear();
-            const_cast<LinkQueue<GTreeNode<T>*>&>(m_queue).enqueue(root());
+            const_cast<LinkQueue<QGTreeNode<T>*>&>(m_queue).clear();
+            const_cast<LinkQueue<QGTreeNode<T>*>&>(m_queue).enqueue(root());
         }
     }
 
@@ -347,15 +347,15 @@ public:
     {
         if(m_queue.length() > 0)
         {
-            GTreeNode<T>* node = m_queue.front();
+            QGTreeNode<T>* node = m_queue.front();
 
-            const_cast<LinkQueue<GTreeNode<T>*>&>(m_queue).dequeue();
+            const_cast<LinkQueue<QGTreeNode<T>*>&>(m_queue).dequeue();
 
             if(node->child.length() > 0)
             {
                 for(node->child.move(0); !node->child.end(); node->child.next())
                 {
-                    const_cast<LinkQueue<GTreeNode<T>*>&>(m_queue).enqueue(node->child.current());
+                    const_cast<LinkQueue<QGTreeNode<T>*>&>(m_queue).enqueue(node->child.current());
                 }
             }
         }
@@ -376,7 +376,7 @@ public:
         return m_queue.front()->value;
     }
 
-    ~GTree()
+    ~QGTree()
     {
         clear();
     }
@@ -384,4 +384,4 @@ public:
 
 }
 
-#endif // GTREE_H
+#endif

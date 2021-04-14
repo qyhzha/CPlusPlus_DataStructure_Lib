@@ -1,5 +1,5 @@
-#ifndef __STATICQUEUE_H__
-#define __STATICQUEUE_H__
+#ifndef __QSTATICQUEUE_H__
+#define __QSTATICQUEUE_H__
 
 #include "QQueue.h"
 
@@ -80,4 +80,4 @@ public:
 
 }
 
-#endif // STATICQUEUE_H
+#endif

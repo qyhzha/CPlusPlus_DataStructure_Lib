@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "*.mak": "makefile",
         "*.tcc": "cpp",
         "cctype": "cpp",
         "clocale": "cpp",
@@ -26,7 +27,10 @@
         "stdexcept": "cpp",
         "string": "c",
         "qlist.h": "c",
-        "qabstractlist.h": "c"
+        "qabstractlist.h": "c",
+        "qlinkqueue.h": "c",
+        "qdualcirclelist.h": "c",
+        "qgtreenode.h": "c"
     },
     "restructuredtext.confPath": ""
 }

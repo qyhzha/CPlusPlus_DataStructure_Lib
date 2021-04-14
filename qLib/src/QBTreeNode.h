@@ -1,5 +1,5 @@
-#ifndef __BTREENODE_H__
-#define __BTREENODE_H__
+#ifndef __QBTREENODE_H__
+#define __QBTREENODE_H__
 
 #include "QTreeNode.h"
 
@@ -68,4 +68,4 @@ public:
 
 }
 
-#endif // BTREENODE_H
+#endif

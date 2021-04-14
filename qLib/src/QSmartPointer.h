@@ -1,5 +1,5 @@
-#ifndef __SMARTPOINTER_H__
-#define __SMARTPOINTER_H__
+#ifndef __QSmartPointer_H__
+#define __QSmartPointer_H__
 
 #include "QPointer.h"
 
@@ -7,18 +7,18 @@ namespace qLib
 {
 
 template <typename T>
-class SmartPointer : public QPointer<T>
+class QSmartPointer : public QPointer<T>
 {
 public:
-    SmartPointer(T* p = NULL) : QPointer<T>(p) {}
+    QSmartPointer(T* p = NULL) : QPointer<T>(p) {}
 
-    SmartPointer(const SmartPointer<T>& obj) : QPointer<T>(NULL)
+    QSmartPointer(const QSmartPointer<T>& obj) : QPointer<T>(NULL)
     {
         this->m_pointer = obj.m_pointer;
-        const_cast<SmartPointer<T>&>(obj).m_objectName = NULL;
+        const_cast<QSmartPointer<T>&>(obj).m_pointer = NULL;
     }
 
-    SmartPointer& operator =(const SmartPointer<T>& obj)
+    QSmartPointer& operator =(const QSmartPointer<T>& obj)
     {
         if(this != &obj)
         {
@@ -26,7 +26,7 @@ public:
 
             this->m_pointer = obj.m_pointer;
 
-            const_cast<SmartPointer<T>&>(obj).m_objectName = NULL;
+            const_cast<QSmartPointer<T>&>(obj).m_objectName = NULL;
 
             delete pointer;
         }
@@ -34,7 +34,7 @@ public:
         return *this;
     }
 
-    ~SmartPointer()
+    ~QSmartPointer()
     {
         delete this->m_pointer;
     }
@@ -43,4 +43,4 @@ public:
 
 }
 
-#endif // SMARTPOINTER_H
+#endif

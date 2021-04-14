@@ -1,5 +1,5 @@
-#ifndef __STATICSTACK_H__
-#define __STATICSTACK_H__
+#ifndef __QSTATICSTACK_H__
+#define __QSTATICSTACK_H__
 
 #include "QStack.h"
 
@@ -87,4 +87,4 @@ public:
 
 }
 
-#endif // STATICSTACK_H
+#endif

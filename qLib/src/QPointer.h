@@ -1,5 +1,5 @@
-#ifndef __POINTER_H__
-#define __POINTER_H__
+#ifndef __QPOINTER_H__
+#define __QPOINTER_H__
 
 #include "QObject.h"
 #include "QException.h"
@@ -23,12 +23,19 @@ public:
         m_pointer = p;
     }
 
-    T* operator ->()
+    QPointer(const QPointer &obj)
+    {
+        m_pointer = obj.m_pointer;
+    }
+
+    virtual ~QPointer() = 0;
+
+    T* operator ->() const
     {
         return m_pointer;
     }
 
-    T& operator *()
+    T& operator *() const
     {
         return *m_pointer;
     }
@@ -52,18 +59,19 @@ public:
     {
         return m_pointer;
     }
-
-    virtual ~QPointer() = 0;
 };
+
 }
 
 namespace qLib
 {
+
 template <typename T>
 QPointer<T>::~QPointer()
 {
 
 }
+
 }
 
-#endif // POINTER_H
+#endif

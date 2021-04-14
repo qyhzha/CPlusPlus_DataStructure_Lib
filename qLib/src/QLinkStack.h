@@ -1,17 +1,17 @@
-#ifndef __LINKSTACK_H__
-#define __LINKSTACK_H__
+#ifndef __QLINKSTACK_H__
+#define __QLINKSTACK_H__
 
 #include "QStack.h"
-#include "QLinkList.h"
+#include "QList.h"
 
 namespace qLib
 {
 
 template <typename T>
-class LinkQStack : public QStack<T>
+class QLinkQStack : public QStack<T>
 {
 protected:
-    QLinkList<T> m_list;
+    QList<T> m_list;
 
 public:
     void push(const T& obj)
@@ -54,4 +54,4 @@ public:
 
 }
 
-#endif // LINKSTACK_H
+#endif

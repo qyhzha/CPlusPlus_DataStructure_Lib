@@ -1,26 +1,26 @@
-#ifndef __GTREENODE_H__
-#define __GTREENODE_H__
+#ifndef __QGTREENODE_H__
+#define __QGTREENODE_H__
 
 #include "QTreeNode.h"
-#include "QLinkList.h"
+#include "QList.h"
 
 namespace qLib
 {
 
 template <typename T>
-class GTreeNode : public QTreeNode<T>
+class QGTreeNode : public QTreeNode<T>
 {
 public:
-    QLinkList<GTreeNode<T>*> child;
+    QList<QGTreeNode<T>*> child;
 
-    GTreeNode()
+    QGTreeNode()
     {
 
     }
 
-    static GTreeNode<T>* NewNode()
+    static QGTreeNode<T>* NewNode()
     {
-        GTreeNode<T>* ret = new GTreeNode<T>();
+        QGTreeNode<T>* ret = new QGTreeNode<T>();
 
         if(ret != NULL)
         {
@@ -30,9 +30,9 @@ public:
         return ret;
     }
 
-    static GTreeNode<T>* NewNode(const T& obj)
+    static QGTreeNode<T>* NewNode(const T& obj)
     {
-        GTreeNode<T>* ret = new GTreeNode<T>();
+        QGTreeNode<T>* ret = new QGTreeNode<T>();
 
         if(ret != NULL)
         {
@@ -43,9 +43,9 @@ public:
         return ret;
     }
 
-    static GTreeNode<T>* NewNode(const T& obj, QTreeNode<T>* node)
+    static QGTreeNode<T>* NewNode(const T& obj, QTreeNode<T>* node)
     {
-        GTreeNode<T>* ret = new GTreeNode<T>();
+        QGTreeNode<T>* ret = new QGTreeNode<T>();
 
         if(ret != NULL)
         {
@@ -60,4 +60,4 @@ public:
 
 }
 
-#endif // GTREENODE_H
+#endif

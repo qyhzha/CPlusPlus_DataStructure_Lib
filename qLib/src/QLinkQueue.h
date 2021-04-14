@@ -1,22 +1,22 @@
-#ifndef __LINKQUEUE_H__
-#define __LINKQUEUE_H__
+#ifndef __QLINKQUEUE_H__
+#define __QLINKQUEUE_H__
 
 #include "QQueue.h"
-#include "DualCircleList.h"
+#include "QDualCircleList.h"
 
 namespace qLib
 {
 
 template <typename T>
-class LinkQueue : QQueue<T>
+class QLinkQueue : QQueue<T>
 {
 protected:
-    DualCircleList<T> m_list;
+    QDualCircleList<T> m_list;
 
 public:
     void enqueue(const T& obj)
     {
-        m_list.insert_tail(0, obj);
+        m_list.insertTail(0, obj);
     }
 
     void dequeue()
@@ -52,4 +52,4 @@ public:
 
 }
 
-#endif // LINKQUEUE_H
+#endif

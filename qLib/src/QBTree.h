@@ -1,10 +1,10 @@
-#ifndef __BTREE_H__
-#define __BTREE_H__
+#ifndef __QBTREE_H__
+#define __QBTREE_H__
 
 #include "QTree.h"
 #include "QBTreeNode.h"
 #include "QLinkQueue.h"
-#include "QLinkList.h"
+#include "QList.h"
 #include "QSharedPointer.h"
 
 namespace qLib
@@ -22,7 +22,7 @@ template <typename T>
 class QBTree : QTree<T>
 {
 protected:
-    LinkQueue<QBTreeNode<T>*> m_queue;
+    QLinkQueue<QBTreeNode<T>*> m_queue;
 
     virtual QBTreeNode<T>* find(QBTreeNode<T>* root, const T& value) const
     {
@@ -499,4 +499,4 @@ public:
 
 }
 
-#endif // BTREE_H
+#endif
