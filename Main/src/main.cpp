@@ -1,10 +1,10 @@
 #include <iostream>
 
-extern void QQueueTest(void);
+extern void QStackTest();
 
 int main()
 {
-    QQueueTest();
+    QStackTest();
 
     return 0;
 }

@@ -31,12 +31,17 @@ class QQueue : public QObject
 
         T &head()
         {
+            if (m_list.length() <= 0)
+            {
+                THROW_EXCEPTION(QInvalidOperationException, "No object in current stack...");
+            }
+
             return m_list[0];
         }
 
         const T &head() const
         {
-            return m_list[0];
+            return const_cast<QQueue<T> &>(*this).head();
         }
 
         void clear()
