@@ -113,6 +113,16 @@ class QDualCircleList : public QDualList<T>
             return QDualList<T>::get(mod(i));
         }
 
+        T &operator [](int i)
+        {
+            return QDualList<T>::operator[](mod(i));
+        }
+
+        T operator [](int i) const
+        {
+            return const_cast<QDualCircleList<T> &>(*this).operator[](i);
+        }
+
         void clear()
         {
             while (this->m_size > 1)

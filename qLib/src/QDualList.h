@@ -41,25 +41,32 @@ class QDualList : public QAbstractList<T>
                 }
 
                 Node *current = isHeader ? QAbstractList<T>::position(i - 1) : positionTail(i - 1);
-                Node *next = current->next;
 
-                node->value = e;
-                node->next = next;
-                node->pre = current;
-                current->next = node;
-                if (next != NULL)
+                if (isHeader)
                 {
-                    next->pre = node;
+                    Node *next = current->next;
+
+                    node->value = e;
+                    node->next = next;
+                    node->pre = current;
+                    current->next = node;
+
+                    if (next != NULL) next->pre = node;
+                    if (i == 0) node->pre = NULL;
+                    if (i == this->m_size) this->m_header->pre = node;
                 }
-
-                if (i == 0)
+                else
                 {
-                    node->pre = NULL;
-                }
+                    Node *pre = current->pre;
 
-                if (i == this->m_size)
-                {
-                    this->m_header->pre = node;
+                    node->value = e;
+                    node->next = current;
+                    node->pre = pre;
+                    current->pre = node;
+
+                    if (pre != NULL) pre->next = node;
+                    if (i == 0) node->next = NULL;
+                    if (i == this->m_size) this->m_header->next = node;
                 }
 
                 this->m_size++;
@@ -132,7 +139,7 @@ class QDualList : public QAbstractList<T>
 
         bool insert(int i, const T &obj)
         {
-            return insert((i <= this->m_size) ? i : (this->m_size - i), obj, (i <= this->m_size));
+            return insert((i <= this->m_size / 2) ? i : (this->m_size - i), obj, (i <= this->m_size / 2));
         }
 
         bool insert(const T &obj)
@@ -142,12 +149,77 @@ class QDualList : public QAbstractList<T>
 
         bool remove(int i)
         {
-            return remove((i <= this->m_size) ? i : (this->m_size - i), (i <= this->m_size));
+            return remove((i <= this->m_size / 2) ? i : (this->m_size - i), (i <= this->m_size / 2));
         }
 
         bool remove()
         {
             return remove(0, false);
+        }
+
+        bool set(int i, const T &e)
+        {
+            bool ret = ((i >= 0) && (i < this->m_size));
+
+            if (ret)
+            {
+                if (i <= this->m_size / 2)
+                {
+                    QAbstractList<T>::position(i)->value = e;
+                }
+                else
+                {
+                    positionTail(this->m_size - i)->value = e;
+                }
+            }
+
+            return ret;
+        }
+
+        bool get(int i, T &e) const
+        {
+            bool ret = ((i >= 0) && (i < this->m_size));
+
+            if (ret)
+            {
+                if (i <= this->m_size / 2)
+                {
+                    e = QAbstractList<T>::position(i)->value;
+                }
+                else
+                {
+                    e = positionTail(this->m_size - i)->value;
+                }
+            }
+
+            return ret;
+        }
+
+        T get(int i) const
+        {
+            T ret;
+
+            if (get(i, ret) != true)
+            {
+                THROW_EXCEPTION(QInvalidParameterException, "Paramter is invalid.");
+            }
+
+            return ret;
+        }
+
+        T &operator [](int i)
+        {
+            if ((i < 0) || (i >= this->m_size))
+            {
+                THROW_EXCEPTION(QIndexOutOfBoundsException, "Index out of bound.");
+            }
+
+            return (i <= this->m_size / 2) ? QAbstractList<T>::position(i)->value : positionTail(this->m_size - i)->value;
+        }
+
+        T operator [](int i) const
+        {
+            return const_cast<QDualList<T> &>(*this).operator[](i);
         }
 
         void clear()

@@ -30,7 +30,8 @@
         "qabstractlist.h": "c",
         "qlinkqueue.h": "c",
         "qdualcirclelist.h": "c",
-        "qgtreenode.h": "c"
+        "qgtreenode.h": "c",
+        "qduallist.h": "c"
     },
     "restructuredtext.confPath": ""
 }

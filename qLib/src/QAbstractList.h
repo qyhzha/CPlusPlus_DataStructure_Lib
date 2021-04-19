@@ -92,6 +92,26 @@ class QAbstractList : public QContainer<T>
             return ret;
         }
 
+        T &operator[](int i)
+        {
+            if ((i < 0) ||(i >= this->m_size))
+            {
+                THROW_EXCEPTION(QIndexOutOfBoundsException, "Index out of bound.");
+            }
+
+            return position(i)->value;
+        }
+
+        T operator[](int i) const
+        {
+            if ((i < 0) ||(i >= this->m_size))
+            {
+                THROW_EXCEPTION(QIndexOutOfBoundsException, "Index out of bound.");
+            }
+
+            return position(i)->value;
+        }
+
         virtual bool move(int i, int step = 1) const
         {
             bool ret = (i >= 0) && (i < this->m_size) && (step > 0);

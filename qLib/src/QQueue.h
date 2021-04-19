@@ -3,6 +3,7 @@
 
 #include "QObject.h"
 #include "QException.h"
+#include "QDualList.h"
 
 namespace qLib
 {
@@ -10,12 +11,53 @@ namespace qLib
 template <typename T>
 class QQueue : public QObject
 {
-public:
-    virtual void enqueue(const T& obj) = 0;
-    virtual void dequeue() = 0;
-    virtual T front() const = 0;
-    virtual void clear() = 0;
-    virtual int length() const = 0;
+    protected:
+        QDualList<T> m_list;
+
+    public:
+        void enqueue(const T &obj)
+        {
+            m_list.insert(obj);
+        }
+
+        T dequeue()
+        {
+            T ret = m_list[0];
+
+            m_list.remove(0);
+
+            return ret;
+        }
+
+        T &head()
+        {
+            return m_list[0];
+        }
+
+        const T &head() const
+        {
+            return m_list[0];
+        }
+
+        void clear()
+        {
+            m_list.clear();
+        }
+
+        int length() const
+        {
+            return m_list.length();
+        }
+
+        int size() const
+        {
+            return m_list.length();
+        }
+
+        bool isEmpty() const
+        {
+            return m_list.isEmpty();
+        }
 };
 
 }

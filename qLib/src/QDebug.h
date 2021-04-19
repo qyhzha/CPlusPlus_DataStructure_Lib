@@ -41,11 +41,13 @@ class QDebug : public QObject
             return old;
         }
 
+        QDebug &operator<<(bool value);
         QDebug &operator<<(int value);
         QDebug &operator<<(const char *buffer);
         QDebug &operator<<(const QString &string);
 
         static inline QDebug debug() { return QDebug(); }
+        static inline void debug(bool value) { debug() << value; }
         static inline void debug(int value) { debug() << value; }
         static inline void debug(const QString &string) { debug() << string; }
         static void debug(const char *format, ...);

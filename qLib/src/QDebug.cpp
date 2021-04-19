@@ -31,6 +31,22 @@ QDebug::~QDebug()
     delete []this->m_buffer;
 }
 
+QDebug &QDebug::operator<<(bool value)
+{
+    char buffer[6];
+
+    if (value)
+    {
+        snprintf(buffer, sizeof(buffer), "true");
+    }
+    else
+    {
+        snprintf(buffer, sizeof(buffer), "false");
+    }
+
+    return this->operator<<(buffer);
+}
+
 QDebug &QDebug::operator<<(int value)
 {
     char buffer[16];
