@@ -26,33 +26,6 @@ class QDualList : public QAbstractList<T>
             return ret;
         }
 
-    public:
-        QDualList()
-        {
-            this->m_header = reinterpret_cast<Node *>(malloc(sizeof(Node)));
-            this->m_current = NULL;
-            this->m_size = 0;
-            this->m_step = 1;
-
-            if (this->m_header == NULL)
-            {
-                THROW_EXCEPTION(QNoEnoughMemoryException, "No memory to create QList Note object.");
-                return;
-            }
-
-            this->m_header->next = NULL;
-            this->m_header->pre = NULL;
-        }
-
-        ~QDualList()
-        {
-            clear();
-            if (this->m_header)
-            {
-                free(this->m_header);
-            }
-        }
-
         virtual bool insert(int i, const T &e, bool isHeader)
         {
             bool ret = ((i >= 0) && (i <= this->m_size));
@@ -95,31 +68,6 @@ class QDualList : public QAbstractList<T>
             return ret;
         }
 
-        virtual bool insert(const T &obj, bool isHeader)
-        {
-            return insert(this->m_size, obj, isHeader);
-        }
-
-        bool insert(int i, const T &obj)
-        {
-            return insert(i, obj, true);
-        }
-
-        bool insert(const T &obj)
-        {
-            return insert(obj, true);
-        }
-
-        virtual bool insertTail(int i, const T &obj)
-        {
-            return insert(i, obj, false);
-        }
-
-        virtual bool insertTail(const T &obj)
-        {
-            return insert(obj, false);
-        }
-
         virtual bool remove(int i, bool isHeader)
         {
             bool ret = ((i >= 0) && (i < this->m_size));
@@ -155,29 +103,51 @@ class QDualList : public QAbstractList<T>
             return ret;
         }
 
-        virtual bool remove(bool isHeader)
+    public:
+        QDualList()
         {
-            return remove(this->m_size - 1);
+            this->m_header = reinterpret_cast<Node *>(malloc(sizeof(Node)));
+            this->m_current = NULL;
+            this->m_size = 0;
+            this->m_step = 1;
+
+            if (this->m_header == NULL)
+            {
+                THROW_EXCEPTION(QNoEnoughMemoryException, "No memory to create QList Note object.");
+                return;
+            }
+
+            this->m_header->next = NULL;
+            this->m_header->pre = NULL;
+        }
+
+        ~QDualList()
+        {
+            clear();
+            if (this->m_header)
+            {
+                free(this->m_header);
+            }
+        }
+
+        bool insert(int i, const T &obj)
+        {
+            return insert((i <= this->m_size) ? i : (this->m_size - i), obj, (i <= this->m_size));
+        }
+
+        bool insert(const T &obj)
+        {
+            return insert(0, obj, false);
         }
 
         bool remove(int i)
         {
-            return remove(i, true);
+            return remove((i <= this->m_size) ? i : (this->m_size - i), (i <= this->m_size));
         }
 
         bool remove()
         {
-            return remove(true);
-        }
-
-        virtual bool removeTail(int i)
-        {
-            return remove(i, false);
-        }
-
-        virtual bool removeTail()
-        {
-            return remove(false);
+            return remove(0, false);
         }
 
         void clear()

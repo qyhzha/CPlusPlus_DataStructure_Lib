@@ -18,18 +18,6 @@ class QDualCircleList : public QDualList<T>
             return (this->m_size == 0) ? 0 : (i % this->m_size);
         }
 
-    public:
-        QDualCircleList()
-        {
-            this->m_header->pre = this->m_header;
-            this->m_header->next = this->m_header;
-        }
-
-        ~QDualCircleList()
-        {
-            clear();
-        }
-
         bool insert(int i, const T &obj, bool isHeader)
         {
             bool ret = true;
@@ -52,32 +40,6 @@ class QDualCircleList : public QDualList<T>
             }
 
             return ret;
-        }
-
-        bool insert(const T &obj, bool isHeader)
-        {
-            return insert(this->m_size, obj, isHeader);
-        }
-
-
-        bool insert(int i, const T &obj)
-        {
-            return insert(i, obj, true);
-        }
-
-        bool insert(const T &obj)
-        {
-            return insert(obj, true);
-        }
-
-        bool insertTail(int i, const T &obj)
-        {
-            return insert(i, obj, false);
-        }
-
-        bool insertTail(const T &obj)
-        {
-            return insert(obj, false);
         }
 
         bool remove(int i, bool isHeader)
@@ -104,29 +66,36 @@ class QDualCircleList : public QDualList<T>
             return ret;
         }
 
-        bool remove(bool isHeader)
+    public:
+        QDualCircleList()
         {
-            return remove(this->m_size - 1, isHeader);
+            this->m_header->pre = this->m_header;
+            this->m_header->next = this->m_header;
+        }
+
+        ~QDualCircleList()
+        {
+            clear();
+        }
+
+        bool insert(int i, const T &obj)
+        {
+            return insert((i <= this->m_size) ? i : (this->m_size - i), obj, (i <= this->m_size));
+        }
+
+        bool insert(const T &obj)
+        {
+            return insert(0, obj, false);
         }
 
         bool remove(int i)
         {
-            return remove(i, true);
+            return remove((i <= this->m_size) ? i : (this->m_size - i), (i <= this->m_size));
         }
 
         bool remove()
         {
-            return remove(true);
-        }
-
-        bool removeTail(int i)
-        {
-            return remove(i, false);
-        }
-
-        bool removeTail()
-        {
-            return remove(false);
+            return remove(0, false);
         }
 
         bool set(int i, const T &obj)
