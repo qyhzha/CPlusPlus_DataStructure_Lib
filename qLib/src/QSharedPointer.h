@@ -16,37 +16,32 @@ class QSharedPointer : public QPointer<T>
 
         void assign(const QSharedPointer<T> &obj)
         {
-            m_number = obj.m_number;
-
-            if (m_number)
-            {
-                (*m_number)++;
-            }
-
+            this->m_number = obj.m_number;
             this->m_pointer = obj.m_pointer;
+
+            if (this->m_number)
+            {
+                (*(this->m_number))++;
+            }
         }
 
     public:
         QSharedPointer(T *p = NULL)
         {
+            this->m_pointer = NULL;
+            this->m_number = NULL;
+
             if (p != NULL)
             {
-                m_number = static_cast<int *>(malloc(sizeof(int)));
+                this->m_number = static_cast<int *>(malloc(sizeof(int)));
+                if (this->m_number == NULL)
+                {
+                    THROW_EXCEPTION(QNoEnoughMemoryException, "No Enough Memory to Create SharadPointer QObject!");
+                    return;
+                }
 
-                if (m_number != NULL)
-                {
-                    *m_number = 1;
-                    this->m_pointer = p;
-                }
-                else
-                {
-                    THROW_EXCEPTION(QNoEnoughMemoryException,
-                                    "No Enough Memory to Create SharadPointer QObject!");
-                }
-            }
-            else
-            {
-                m_number = NULL;
+                *(this->m_number) = 1;
+                this->m_pointer = p;
             }
         }
 
@@ -76,9 +71,9 @@ class QSharedPointer : public QPointer<T>
 
             if (number)
             {
-                (*number)--;
+                (*(number))--;
 
-                if (*number == 0)
+                if (*(number) == 0)
                 {
                     free(number);
                     delete pointer;

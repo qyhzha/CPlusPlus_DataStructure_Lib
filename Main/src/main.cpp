@@ -1,10 +1,10 @@
 #include <iostream>
 
-extern void QStackTest();
+extern void QSharedPointerTest();
 
 int main()
 {
-    QStackTest();
+    QSharedPointerTest();
 
     return 0;
 }
