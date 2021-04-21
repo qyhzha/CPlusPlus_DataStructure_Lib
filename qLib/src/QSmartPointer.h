@@ -28,7 +28,7 @@ public:
 
             const_cast<QSmartPointer<T>&>(obj).m_objectName = NULL;
 
-            delete pointer;
+            if (pointer) delete pointer;
         }
 
         return *this;

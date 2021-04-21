@@ -1,10 +1,10 @@
 #include <iostream>
 
-extern void QSharedPointerTest();
+extern void QSmartPointerTest();
 
 int main()
 {
-    QSharedPointerTest();
+    QSmartPointerTest();
 
     return 0;
 }
