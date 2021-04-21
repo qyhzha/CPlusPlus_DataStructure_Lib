@@ -1,10 +1,10 @@
 #include <iostream>
 
-extern void QSmartPointerTest();
+extern void FactoryPatternDemo();
 
 int main()
 {
-    QSmartPointerTest();
+    FactoryPatternDemo();
 
     return 0;
 }

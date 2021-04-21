@@ -525,4 +525,19 @@ QString &QString::replace(const QString &t, const QString &s)
     return replace(t.m_str, s.m_str);
 }
 
+int QString::compare(const QString &str, CaseSensitivity cs)
+{
+    return compare(*this, str, cs);
+}
+
+int QString::compare(const QString &s1, const QString &s2, CaseSensitivity cs)
+{
+    if (cs == CaseSensitive)
+    {
+        return strcmp(s1.m_str, s2.m_str);
+    }
+
+    return strcasecmp(s1.m_str, s2.m_str);
+}
+
 }

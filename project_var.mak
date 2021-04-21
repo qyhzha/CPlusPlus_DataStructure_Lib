@@ -1,6 +1,7 @@
 MODULES := Main \
            qLib \
-           Test
+           Test \
+           DesignPattern
 
 ROOT := $(realpath .)
 DIR_BUILD := Build

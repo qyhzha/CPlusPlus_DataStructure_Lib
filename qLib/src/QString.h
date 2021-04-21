@@ -6,6 +6,12 @@
 namespace qLib
 {
 
+enum CaseSensitivity
+{
+    CaseInsensitive,
+    CaseSensitive,
+};
+
 class QString : public QObject
 {
     protected:
@@ -78,6 +84,10 @@ class QString : public QObject
         QString &replace(const char *t, const QString &s);
         QString &replace(const QString &t, const char *s);
         QString &replace(const QString &t, const QString &s);
+
+        int compare(const QString &str, CaseSensitivity cs = CaseSensitive);
+
+        static int compare(const QString &s1, const QString &s2, CaseSensitivity cs = CaseSensitive);
 
         ~QString();
 };
