@@ -1,10 +1,10 @@
 #include <iostream>
 
-extern void AbstractFactoryPatternDemo();
+extern void SingletonPatternDemo();
 
 int main()
 {
-    AbstractFactoryPatternDemo();
+    SingletonPatternDemo();
 
     return 0;
 }
