@@ -1,5 +1,5 @@
-#include "QDebug"
 #include "QObject"
+#include "QString"
 
 class QShape : public qLib::QObject
 {
@@ -10,26 +10,17 @@ class QShape : public qLib::QObject
 class QRectangle : public QShape
 {
     public :
-        void draw() const
-        {
-            qLib::qDebug() << "this is a Rectangle.";
-        }
+        void draw() const;
 };
 
 class QSquare : public QShape
 {
     public :
-        void draw() const
-        {
-            qLib::qDebug() << "this is a Square";
-        }
+        void draw() const;
 };
 
 class QCircle : public QShape
 {
     public :
-        void draw() const
-        {
-            qLib::qDebug() << "this is a Circle";
-        }
+        void draw() const;
 };

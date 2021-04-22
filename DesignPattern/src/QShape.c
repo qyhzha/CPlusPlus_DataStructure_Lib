@@ -1,2 +1,0 @@
-#include "QShape.h"
-
