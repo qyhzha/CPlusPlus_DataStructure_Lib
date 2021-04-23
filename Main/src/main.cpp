@@ -1,10 +1,10 @@
 #include <iostream>
 
-extern void SingletonPatternDemo();
+extern void BuilderPatternDemo();
 
 int main()
 {
-    SingletonPatternDemo();
+    BuilderPatternDemo();
 
     return 0;
 }

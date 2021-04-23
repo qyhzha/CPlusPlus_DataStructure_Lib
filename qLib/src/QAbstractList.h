@@ -2,6 +2,7 @@
 #define __QABSTRACTLIST_H__
 
 #include "QContainer.h"
+#include "QException.h"
 
 namespace qLib
 {

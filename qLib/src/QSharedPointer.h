@@ -50,7 +50,7 @@ class QSharedPointer : public QPointer<T>
             assign(obj);
         }
 
-        QSharedPointer &operator = (const QSharedPointer<T> &obj)
+        QSharedPointer &operator= (const QSharedPointer<T> &obj)
         {
             if (this != &obj)
             {
@@ -90,7 +90,7 @@ class QSharedPointer : public QPointer<T>
 template <typename T>
 bool operator ==(const QSharedPointer<T> &obj1, const QSharedPointer<T> &obj2)
 {
-    return (obj1.m_pointer == obj2.m_pointer);
+    return (obj1.get() == obj2.get());
 }
 
 template <typename T>

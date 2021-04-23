@@ -37,7 +37,10 @@
         "qdebug.h": "c",
         "qobject.h": "c",
         "qshape": "cpp",
-        "qabstractfactory": "cpp"
+        "qabstractfactory": "cpp",
+        "qmeal": "cpp",
+        "qobject": "cpp",
+        "qcontainer.h": "c"
     },
     "restructuredtext.confPath": ""
 }

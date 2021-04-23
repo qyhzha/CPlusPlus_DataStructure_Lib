@@ -56,6 +56,15 @@ QDebug &QDebug::operator<<(int value)
     return this->operator<<(buffer);
 }
 
+QDebug &QDebug::operator<<(float value)
+{
+    char buffer[64];
+
+    snprintf(buffer, sizeof(buffer), "%f", value);
+
+    return this->operator<<(buffer);
+}
+
 QDebug &QDebug::operator<<(const char *buffer)
 {
     int length = strlen(buffer);
