@@ -1,10 +1,8 @@
-#include <iostream>
-
-extern void BuilderPatternDemo();
+extern void PrototypePatternDemo();
 
 int main()
 {
-    BuilderPatternDemo();
+    PrototypePatternDemo();
 
     return 0;
 }
