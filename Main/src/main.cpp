@@ -1,8 +1,8 @@
-extern void PrototypePatternDemo();
+extern void AdapterPatternDemo();
 
 int main()
 {
-    PrototypePatternDemo();
+    AdapterPatternDemo();
 
     return 0;
 }
