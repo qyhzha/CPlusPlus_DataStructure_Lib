@@ -98,7 +98,7 @@ inline const QSize operator+(const QSize &obj1, const QSize &obj2)
     return ret;
 }
 
-inline QSize &operator-(const QSize &obj1, const QSize &obj2)
+inline const QSize operator-(const QSize &obj1, const QSize &obj2)
 {
     QSize ret;
 
@@ -108,7 +108,7 @@ inline QSize &operator-(const QSize &obj1, const QSize &obj2)
     return ret;
 }
 
-inline QSize &operator*(const QSize &obj1, const QSize &obj2)
+inline const QSize operator*(const QSize &obj1, const QSize &obj2)
 {
     QSize ret;
 
@@ -118,7 +118,7 @@ inline QSize &operator*(const QSize &obj1, const QSize &obj2)
     return ret;
 }
 
-inline QSize &operator/(const QSize &obj1, const QSize &obj2)
+inline const QSize operator/(const QSize &obj1, const QSize &obj2)
 {
     QSize ret;
 

@@ -1,8 +1,8 @@
-extern void AdapterPatternDemo();
+extern void BridgePatternDemo();
 
 int main()
 {
-    AdapterPatternDemo();
+    BridgePatternDemo();
 
     return 0;
 }
