@@ -1,8 +1,8 @@
-extern void BridgePatternDemo();
+extern void FilterPatternDemo();
 
 int main()
 {
-    BridgePatternDemo();
+    FilterPatternDemo();
 
     return 0;
 }

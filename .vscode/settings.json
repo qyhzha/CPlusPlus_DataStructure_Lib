@@ -40,7 +40,10 @@
         "qabstractfactory": "cpp",
         "qmeal": "cpp",
         "qobject": "cpp",
-        "qcontainer.h": "c"
+        "qcontainer.h": "c",
+        "qperson": "cpp",
+        "qsharedpointer": "cpp",
+        "qfilter": "cpp"
     },
     "restructuredtext.confPath": ""
 }
