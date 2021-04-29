@@ -1,14 +1,14 @@
 #ifndef __QABSTRACTLIST_H__
 #define __QABSTRACTLIST_H__
 
-#include "QContainer.h"
+#include "QObject.h"
 #include "QException.h"
 
 namespace qLib
 {
 
 template <typename T>
-class QAbstractList : public QContainer<T>
+class QList : public QObject
 {
     protected:
         struct Node : public QObject
@@ -18,38 +18,63 @@ class QAbstractList : public QContainer<T>
             Node *pre;
         };
 
+        enum QDirection
+        {
+            QPre,
+            QNext,
+        };
+
         Node *m_header;
         mutable Node *m_current;
+        int m_size;
         mutable int m_step;
 
-        virtual Node *position(int i) const
+    protected :
+        Node *position(int i, QDirection direct = QNext) const
         {
-            Node *ret = m_header;
+            Node *ret = this->m_header;
 
             for (int p = -1; (p < i) && ret; p++)
             {
-                ret = ret->next;
+                if (direct == QNext)
+                {
+                    ret = ret->next;
+                }
+                else
+                {
+                    ret = ret->pre;
+                }
             }
 
             return ret;
         }
 
-        virtual Node *createNode()
-        {
-            return new Node();
-        }
-
-        virtual void destroyNode(Node *node)
-        {
-            delete node;
-        }
-
-        QAbstractList(const QAbstractList<T> &obj);
-        QAbstractList &operator==(const QAbstractList<T> &obj);
+        QList(const QList<T> &obj);
+        QList &operator==(const QList<T> &obj);
 
     public:
-        QAbstractList() {}
-        ~QAbstractList() {}
+        QList()
+        {
+            this->m_header = reinterpret_cast<Node *>(malloc(sizeof(Node)));
+            this->m_current = NULL;
+            this->m_size = 0;
+            this->m_step = 1;
+
+            if (this->m_header == NULL)
+            {
+                THROW_EXCEPTION(QNoEnoughMemoryException, "No memory to create QList Note object.");
+                return;
+            }
+
+            this->m_header->next = NULL;
+            this->m_header->pre = NULL;
+        }
+        ~QList() { clear();if (this->m_header) free(this->m_header); }
+
+        inline int size() const { return this->m_size; }
+        inline int length() const { return this->size(); }
+        inline int capacity() const { return this->size(); }
+        inline bool isEmpty() const { return (this->size() == 0); }
 
         virtual bool insert(int i, const T &e) = 0;
         virtual bool remove(int i) = 0;

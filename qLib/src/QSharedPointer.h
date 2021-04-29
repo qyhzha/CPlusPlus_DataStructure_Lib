@@ -14,7 +14,7 @@ class QSharedPointer : public QPointer<T>
     protected:
         int *m_number;
 
-        void assign(const QSharedPointer<T> &obj)
+        inline void assign(const QSharedPointer<T> &obj)
         {
             this->m_number = obj.m_number;
             this->m_pointer = obj.m_pointer;
@@ -91,6 +91,12 @@ template <typename T>
 bool operator ==(const QSharedPointer<T> &obj1, const QSharedPointer<T> &obj2)
 {
     return (obj1.get() == obj2.get());
+}
+
+template <typename T>
+bool operator ==(const QSharedPointer<T> &obj, void *ptr)
+{
+    return (obj.get() == ptr);
 }
 
 template <typename T>

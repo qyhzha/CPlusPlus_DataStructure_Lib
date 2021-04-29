@@ -43,7 +43,19 @@
         "qcontainer.h": "c",
         "qperson": "cpp",
         "qsharedpointer": "cpp",
-        "qfilter": "cpp"
+        "qfilter": "cpp",
+        "functional": "cpp",
+        "array": "cpp",
+        "tuple": "cpp",
+        "fstream": "cpp",
+        "numeric": "cpp",
+        "utility": "cpp",
+        "list": "c",
+        "chrono": "c",
+        "sstream": "c",
+        "deque": "c",
+        "unordered_map": "c",
+        "vector": "c"
     },
     "restructuredtext.confPath": ""
 }

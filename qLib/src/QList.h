@@ -99,6 +99,37 @@ class QList : public QAbstractList<T>
             return remove(this->m_size - 1);
         }
 
+        bool removeOne(const T &obj)
+        {
+            for(this->move(0); !this->end(); this->next())
+            {
+                T &data = this->current();
+
+                Node *toDel = current->next;
+
+                if (this->m_current == toDel)
+                {
+                    this->m_current = toDel->next;
+                }
+
+                current->next = toDel->next;
+                this->m_size--;
+
+                QAbstractList<T>::destroyNode(toDel);
+            }
+        }
+
+        bool removeAll(const T &obj)
+        {
+            for(this->move(0); !this->end(); this->next())
+            {
+                if (this->current() == obj)
+                {
+                    delete this->current();
+                }
+            }
+        }
+
         void clear()
         {
             while(this->m_size > 0)

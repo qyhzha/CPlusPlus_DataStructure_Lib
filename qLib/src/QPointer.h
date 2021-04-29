@@ -13,49 +13,49 @@ class QPointer : public QObject
         T *m_pointer;
 
     public:
-        QPointer()
+        inline QPointer()
         {
             m_pointer = NULL;
         }
 
-        QPointer(T *p)
+        inline QPointer(T *p)
         {
             m_pointer = p;
         }
 
-        QPointer(const QPointer &obj)
+        inline QPointer(const QPointer &obj)
         {
             m_pointer = obj.m_pointer;
         }
 
         virtual ~QPointer() = 0;
 
-        T *operator ->()
+        inline T *operator ->()
         {
             return m_pointer;
         }
 
-        T &operator *()
+        inline T &operator *()
         {
             return *m_pointer;
         }
 
-        const T *operator ->() const
+        inline const T *operator ->() const
         {
             return m_pointer;
         }
 
-        const T &operator *() const
+        inline const T &operator *() const
         {
             return *m_pointer;
         }
 
-        bool isNull() const
+        inline bool isNull() const
         {
             return (m_pointer == NULL);
         }
 
-        T *get() const
+        inline T *get() const
         {
             return m_pointer;
         }
