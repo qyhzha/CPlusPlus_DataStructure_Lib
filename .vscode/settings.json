@@ -55,7 +55,8 @@
         "sstream": "c",
         "deque": "c",
         "unordered_map": "c",
-        "vector": "c"
+        "vector": "c",
+        "qexception.h": "c",
+        "ratio": "c"
     },
-    "restructuredtext.confPath": ""
 }

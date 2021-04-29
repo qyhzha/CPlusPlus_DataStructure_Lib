@@ -25,7 +25,7 @@ void QQueueTest(void)
             queue.enqueue(test);
         }
 
-        qLib::qDebug() << "head: " << queue.head().value() << "; name: " << queue.head().objectName();
+        qLib::qDebug() << "head: " << queue.head().value() << "; name: " << queue.head().name();
 
         qLib::qDebug() << "length: " << queue.length();
 

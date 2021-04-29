@@ -1,7 +1,6 @@
 #ifndef __QSTACK_H__
 #define __QSTACK_H__
 
-#include "QObject.h"
 #include "QList.h"
 #include "QException.h"
 
@@ -9,66 +8,29 @@ namespace qLib
 {
 
 template <typename T>
-class QStack : public QObject
+class QStack : public QList<T>
 {
-    protected:
-        QList<T> m_list;
-
     public:
-        void push(const T &obj)
+        inline void push(const T &obj) { QList<T>::pushFront(obj); }
+        inline T pop()
         {
-            m_list.insert(0, obj);
-        }
-
-        T pop()
-        {
-            T ret;
-            if (m_list.length() <= 0)
+            if (QList<T>::length() <= 0)
             {
-                THROW_EXCEPTION(QInvalidOperationException, "No object in current stack...");
-                return ret;
+                THROW_EXCEPTION(QInvalidOperationException, "No item in current stack.");
             }
-
-            ret = m_list[0];
-            m_list.remove(0);
-
+            T ret = QList<T>::front();
+            QList<T>::popFront();
             return ret;
         }
-
-        void clear()
+        inline T &top()
         {
-            m_list.clear();
-        }
-
-        int size() const
-        {
-            return m_list.length();
-        }
-
-        int length() const
-        {
-            return m_list.length();
-        }
-
-        bool isEmpty() const
-        {
-            return (m_list.length() == 0);
-        }
-
-        T &top()
-        {
-            if (m_list.length() <= 0)
+            if (QList<T>::length() <= 0)
             {
                 THROW_EXCEPTION(QInvalidOperationException, "No object in current stack...");
             }
-
-            return m_list[0];
+            return QList<T>::front();
         }
-
-        const T &top() const
-        {
-            return const_cast<QStack<T> &>(*this).top();
-        }
+        inline const T &top() const { return const_cast<QStack<T> &>(*this).top(); }
 };
 
 }

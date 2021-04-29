@@ -16,7 +16,11 @@ class QObject
 
     public:
         inline QObject(QObject *parent = NULL) { this->m_name = strdup("object"); this->m_parent = NULL; }
-        inline QObject(const QObject &obj, QObject *parent = NULL) { this->m_name = strdup(obj.m_name); this->m_parent = obj.m_parent; }
+        inline QObject(const QObject &obj, QObject *parent = NULL)
+        {
+            this->m_name = strdup(obj.m_name);
+            this->m_parent = obj.m_parent;
+        }
         virtual ~QObject() = 0;
 
         inline void *operator new (size_t size) throw() { return malloc(size); }
@@ -44,9 +48,11 @@ class QObject
                 this->m_name = strdup(obj.m_name);
                 this->m_parent = obj.m_parent;
             }
+
+            return *this;
         }
 };
 
 }
 
-#endif // OBJECT_H
+#endif

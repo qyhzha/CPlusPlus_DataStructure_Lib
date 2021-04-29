@@ -25,7 +25,7 @@ void QStackTest()
             stack.push(test);
         }
 
-        qLib::qDebug() << "head: " << stack.top().value() << "; name: " << stack.top().objectName();
+        qLib::qDebug() << "head: " << stack.top().value() << "; name: " << stack.top().name();
 
         qLib::qDebug() << "length: " << stack.length();
 

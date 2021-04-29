@@ -3,7 +3,7 @@
 
 bool QMeal::addItem(const qLib::QSharedPointer<QItem> item)
 {
-    return this->m_list.insert(item);
+    return this->m_list.append(item);
 }
 
 float QMeal::cost() const

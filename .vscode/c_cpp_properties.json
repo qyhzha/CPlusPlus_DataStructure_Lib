@@ -4,16 +4,16 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "D:\\Qt\\Qt5.9.0\\Tools\\mingw530_32\\include"
+                "D:/Qt/Qt5.9.0/Tools/mingw530_32/i686-w64-mingw32/include"
             ],
             "defines": [
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE"
             ],
-            "cStandard": "c99",
-            "cppStandard": "c++11",
-            "compilerPath": "D:\\Qt\\Qt5.9.0\\Tools\\mingw530_32\\bin\\gcc.exe"
+            "cStandard": "c11",
+            "cppStandard": "c++20",
+            "compilerPath": "D:\\Qt\\Qt5.9.0\\Tools\\mingw530_32\\bin\\g++.exe"
         }
     ],
     "version": 4

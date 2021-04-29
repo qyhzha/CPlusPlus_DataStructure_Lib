@@ -17,7 +17,7 @@ class QGenderFilter : public qLib::QObject
             {
                 if (list.current()->gender() == pattern)
                 {
-                    ret->insert(list.current());
+                    ret->append(list.current());
                 }
             }
 
@@ -36,7 +36,7 @@ class QMaritalStatusFilter : public qLib::QObject
             {
                 if (list.current()->maritalStatus() == pattern)
                 {
-                    ret->insert(list.current());
+                    ret->append(list.current());
                 }
             }
 
@@ -63,12 +63,12 @@ void FilterPatternDemo()
     {
         qLib::QList< qLib::QPerson * > persons;
 
-        persons.insert(new qLib::QPerson("Robert", "Male", "Single"));
-        persons.insert(new qLib::QPerson("John","Male", "Married"));
-        persons.insert(new qLib::QPerson("Laura","Female", "Married"));
-        persons.insert(new qLib::QPerson("Diana","Female", "Single"));
-        persons.insert(new qLib::QPerson("Mike","Male", "Single"));
-        persons.insert(new qLib::QPerson("Bobby","Male", "Single"));
+        persons.append(new qLib::QPerson("Robert", "Male", "Single"));
+        persons.append(new qLib::QPerson("John","Male", "Married"));
+        persons.append(new qLib::QPerson("Laura","Female", "Married"));
+        persons.append(new qLib::QPerson("Diana","Female", "Single"));
+        persons.append(new qLib::QPerson("Mike","Male", "Single"));
+        persons.append(new qLib::QPerson("Bobby","Male", "Single"));
 
         QGenderAndMaritalStatusFiler maritalStatusFilter;
 

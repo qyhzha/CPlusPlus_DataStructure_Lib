@@ -49,7 +49,7 @@ class QEmployeee : qLib::QObject
 
         inline bool insert(QEmployeee * const &obj)
         {
-            return this->m_subordinates->insert(obj);
+            return this->m_subordinates->append(obj);
         }
 
         inline bool remove(QEmployeee * const &obj)

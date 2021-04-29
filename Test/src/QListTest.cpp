@@ -13,7 +13,7 @@ void QListTest(void)
         {
             QTest test(i);
 
-            list.insert(test);
+            list.append(test);
         }
 
         qLib::qDebug() << "length = " << list.length();
@@ -25,7 +25,7 @@ void QListTest(void)
 
         for(int i = 0; i < 5; i++)
         {
-            list.remove();
+            list.removeLast();
         }
 
         for(list.move(0); !list.end(); list.next())
@@ -35,7 +35,7 @@ void QListTest(void)
 
         for(int i = 0; i < 10; i++)
         {
-            list.remove();
+            list.removeLast();
         }
 
         for(list.move(0); !list.end(); list.next())
@@ -47,7 +47,7 @@ void QListTest(void)
         {
             QTest test(i * 10);
 
-            list.insert(test);
+            list.append(test);
         }
 
         for(list.move(0); !list.end(); list.next())

@@ -1,68 +1,27 @@
 #ifndef __QQUEUE_H__
 #define __QQUEUE_H__
 
-#include "QObject.h"
 #include "QException.h"
-#include "QDualList.h"
+#include "QList.h"
 
 namespace qLib
 {
 
 template <typename T>
-class QQueue : public QObject
+class QQueue : public QList<T>
 {
-    protected:
-        QDualList<T> m_list;
-
     public:
-        void enqueue(const T &obj)
+        inline void enqueue(const T &obj) { QList<T>::append(obj); }
+        inline T dequeue() { T ret = QList<T>::first(); QList<T>::removeFirst(); return ret; }
+        inline T &head()
         {
-            m_list.insert(obj);
-        }
-
-        T dequeue()
-        {
-            T ret = m_list[0];
-
-            m_list.remove(0);
-
-            return ret;
-        }
-
-        T &head()
-        {
-            if (m_list.length() <= 0)
+            if (QList<T>::length() <= 0)
             {
                 THROW_EXCEPTION(QInvalidOperationException, "No object in current stack...");
             }
-
-            return m_list[0];
+            return QList<T>::first();
         }
-
-        const T &head() const
-        {
-            return const_cast<QQueue<T> &>(*this).head();
-        }
-
-        void clear()
-        {
-            m_list.clear();
-        }
-
-        int length() const
-        {
-            return m_list.length();
-        }
-
-        int size() const
-        {
-            return m_list.length();
-        }
-
-        bool isEmpty() const
-        {
-            return m_list.isEmpty();
-        }
+        inline const T &head() const { return const_cast<QQueue<T> &>(*this).head(); }
 };
 
 }

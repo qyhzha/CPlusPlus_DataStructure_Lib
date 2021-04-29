@@ -7,13 +7,13 @@ void SingletonPatternDemo()
 
     QSingletonObject &singletonObject1 = QSingletonObject::singletonObject();
 
-    qLib::qDebug() << "object name: " << singletonObject1.objectName();
+    qLib::qDebug() << "object name: " << singletonObject1.name();
 
-    singletonObject1.setObjectName("singleton object");
+    singletonObject1.setName("singleton object");
 
-    qLib::qDebug() << "object name: " << singletonObject1.objectName();
+    qLib::qDebug() << "object name: " << singletonObject1.name();
 
     QSingletonObject &singletonObject2 = QSingletonObject::singletonObject();
 
-    qLib::qDebug() << "object name: " << singletonObject1.objectName();
+    qLib::qDebug() << "object name: " << singletonObject1.name();
 }
