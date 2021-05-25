@@ -29,18 +29,10 @@ all : $(OUTPUT)
 $(OUTPUT) : $(OBJS)
 	@$(AR) $(ARFLAGS) $@ $^
 
-$(DIR_OBJ)/%.o : $(DIR_SRC)/%.c
+$(DIR_OBJ)/%.o : $(DIR_SRC)/%.c $(MAKEFILE_LIST)
 	@$(CC) $(CFLAGS) -o $@ -c $<
 
-$(DIR_OBJ)/%.o : $(DIR_SRC)/%.cpp
+$(DIR_OBJ)/%.o : $(DIR_SRC)/%.cpp $(MAKEFILE_LIST)
 	@$(C++) $(CFLAGS) -o $@ -c $<
 
 -include $(DEPS)
-
-$(DIR_OBJ)/%.dep : $(DIR_SRC)/%.c
-	@set -e; \
-	$(CC) $(CFLAGS) -MM -E $< | sed 's,\(.*\)\.o[ :]*,$(DIR_OBJ)/\1.o $@ : ,g' > $@
-
-$(DIR_OBJ)/%.dep : $(DIR_SRC)/%.cpp
-	@set -e; \
-	$(C++) $(CFLAGS) -MM -E $< | sed 's,\(.*\)\.o[ :]*,$(DIR_OBJ)/\1.o $@ : ,g' > $@
